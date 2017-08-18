@@ -16,6 +16,10 @@ class VideoCamera(object):
 
         # Computer Vision / Image Processing
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+        print type(gray)
+        print(gray)
+        print gray.shape
         faces = self.face_cascade.detectMultiScale(gray, 1.3, 5)
 
         for (x, y, w, h) in faces:

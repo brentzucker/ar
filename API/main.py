@@ -1,8 +1,10 @@
 __author__ = 'Adamlieberman'
 # main.py
 
-from flask import Flask, render_template, Response
+from flask import Flask, render_template, Response, request, jsonify
 from camera import VideoCamera
+from face_detector import FaceDetector
+import numpy as np
 
 app = Flask(__name__)
 
@@ -22,6 +24,19 @@ def gen(camera):
 def video_feed():
     return Response(gen(VideoCamera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
+
+@app.route('/detectFace', methods=['POST'])
+def detectFace():
+    # Gray Image
+    img_array = request.form['img']
+    img = np.array(img_array)
+
+    # Get Coordinates of Face
+    fd = FaceDetector()
+    json_faces = fd.detectFaces(img)
+    return jsonify(json_faces)
+
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=True,port=5001)
