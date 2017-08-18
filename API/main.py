@@ -1,7 +1,8 @@
 __author__ = 'Adamlieberman'
 # main.py
 
-from flask import Flask, render_template, Response, request, jsonify
+from functools import wraps
+from flask import Flask, render_template, Response, request, jsonify, current_app
 from camera import VideoCamera
 from face_detector import FaceDetector
 import numpy as np
@@ -25,17 +26,37 @@ def video_feed():
     return Response(gen(VideoCamera()),
                     mimetype='multipart/x-mixed-replace; boundary=frame')
 
-@app.route('/detectFace', methods=['POST'])
+@app.route('/detectFace', methods=['POST', 'GET'])
 def detectFace():
+    url_arr = request.url.split('=')
+    print('hi')
+    print(url_arr)
+    print len(url_arr)
     # Gray Image
     img_array = request.form['img']
     img = np.array(img_array)
 
+
+
     # Get Coordinates of Face
     fd = FaceDetector()
     json_faces = fd.detectFaces(img)
-    return jsonify(json_faces)
+    return jsonp(jsonify(json_faces))
 
+
+def jsonp(func):
+    """Wraps JSONified output for JSONP requests."""
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        callback = request.args.get('callback', False)
+        if callback:
+            data = str(func(*args, **kwargs).data)
+            content = str(callback) + '(' + data + ')'
+            mimetype = 'application/javascript'
+            return current_app.response_class(content, mimetype=mimetype)
+        else:
+            return func(*args, **kwargs)
+    return decorated_function
 
 
 if __name__ == '__main__':
