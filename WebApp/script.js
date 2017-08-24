@@ -1,12 +1,20 @@
 console.log('script.js');
 
+var url_api = 'http://localhost:80/detectFace';
+var payload = null;
 var streaming = false;
 var video = null;
 var rgb = null;
 var gray = null;
 var img = null;
+var imgJSON = null;
+var canvas = null;
+var base64 = null;
+var payload = {};
 
 setInterval(function() {
+
+	// Img Matrix
 	// Flattened RGB Array
 	rgb = getImgMatrix(video);
 
@@ -15,21 +23,17 @@ setInterval(function() {
 
 	// Get 2D array from flattened img
 	img = flatTo2DArray(gray, video.videoWidth);
+	imgJSON = JSON.stringify(img);
+	payload['img'] = imgJSON;
 
-	// $.post('http://localhost:5001/detectFace', img, function(data) {
-	// 	console.log(data);
-	// }, 'json');
+	// Base64 Image
+	base64 = getImgAsBase64Str(video);
+	payload['base64'] = base64;
 
-	$.ajax({
-		type: 'POST',
-		url: 'http://localhost:5001/detectFace',
-		data: img,
-		dataType: 'jsonp',
-		success: function(response) {
-			console.log(response)
-		}
+	$.post(url_api, payload, function(data) {
+		// TODO: Plot coordinates on face
+		console.log(data);
 	});
-
 }, 1000);
 
 window.onload = function() {
@@ -43,7 +47,7 @@ function getImgMatrix(video) {
 	h = video.videoHeight;
 
 	// Create Canvas
-	var canvas = document.createElement('canvas');
+	canvas = document.createElement('canvas');
 	canvas.width = w;
 	canvas.height = h;
 
@@ -58,14 +62,34 @@ function getImgMatrix(video) {
 	return data;
 }
 
+function getImgAsBase64Str(video) {
+	w = video.videoWidth;
+	h = video.videoHeight;
+
+	// Create Canvas
+	canvas = document.createElement('canvas');
+	canvas.width = w;
+	canvas.height = h;
+
+	// Draw image on canvas
+	var ctx = canvas.getContext('2d');
+	ctx.drawImage(video, 0, 0);
+
+	// Get Image data
+	var data = canvas.toDataURL();
+
+	return data;
+}
+
 function rgbToGray(rgb) {
 	var gray = [];
 	for (var i = 3; i < rgb.length; i+=4) {
-		var r = i - 3; 
-		var g = i - 2;
-		var b = i - 1;
+		var r = rgb[i - 3]; 
+		var g = rgb[i - 2];
+		var b = rgb[i - 1];
 
-		var val = (r  + g + b) / 3;
+		var val = (parseInt(r)  + parseInt(g) + parseInt(b)) / 3;
+		val = Math.round(val);
 		gray.push(val);
 	}
 	return gray;
