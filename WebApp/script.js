@@ -20,6 +20,9 @@ setInterval(function() {
 	$.post(url_api, payload, function(data) {
 		// TODO: Plot coordinates on face
 		console.log(data);
+
+		// TODO: Move this to MVC
+		$('#TestStreamCoords').text(JSON.stringify(data));
 	});
 }, query_every_ms);
 
