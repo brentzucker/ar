@@ -74,6 +74,16 @@
 
  }
 
+
+
+ #photobox { 
+
+  /*Position, Size, Z-index Properties    */
+  position: absolute; 
+  z-index: 2000; 
+  width: 100%
+ }
+
 </style>
 
 
@@ -81,7 +91,17 @@
   
 <body>
 <!--<div style="background-color: blue; width: 200px; height: 200px; position: absolute; z-index: 2147"></div> --> 
+
+
+
+<!-- Draw Rectangle Around people --> 
+<svg id="photobox">
+  <rect x="500" y="10" width="500" height="200" style="fill:blue;stroke:black;stroke-width:5;fill-opacity:0.0;stroke-opacity:0.9" /></rect>
+</svg>
+<!-- Left Accordion -->
 <div id="overlay">
+
+
 	<div class="ui styled accordion" style="background-color: transparent; color: white;">
   <div class="title">
     <font color="white"><i class="dropdown icon"></i></font>
@@ -224,8 +244,9 @@
     </div>
   </div>
 </div>
-
 </div>
+
+<!-- End of Left Accordion -->
 
 <div id="TestOverlay"><center><font color= "white"><h1 id="TestStreamCoords">TEST</h1></font></center></div> 
 
@@ -235,6 +256,7 @@
 </div>
 
 <!-- SCRIPTS -->
+
 
 
 <!-- Accordion -->
