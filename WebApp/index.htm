@@ -1,14 +1,267 @@
 <html>
 <head>
-<meta charset="utf-8">
-<!-- https://www.kirupa.com/html5/accessing_your_webcam_in_html5.htm -->
+	<meta charset="utf-8">
+	<title>FIAR</title>
+
+	<!-- CV Service Script -->
+	<script src="script.js"></script>
+
+	<!-- JQuery CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Semantic UI CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+
+    <!-- Glide CDN for Carousel -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" rel="stylesheet"/>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" rel="stylesheet"/>
+
+
+
 </head>
+
+
+<style> 
+#camera { 
+	z-index: 1; 
+ }
+
+#overlay { 
+
+	/*Position, Size, Z-index Properties    */
+	width: 20%; 
+	height: 75%; 
+	position: absolute; 
+	z-index: 2147; 
+	background-color: blue;
+	overflow-y: hidden;
+
+	/* Color properties */
+	background-color: transparent;
+  	background:rgba(0,0,0,0.6);
+    opacity:0.8;
+
+    /* Box shadowing properties */
+	-webkit-box-shadow:0 0 20px blue; 
+    -moz-box-shadow: 0 0 20px blue; 
+    box-shadow:0 0 20px blue;
+ }
+
+ .content { 
+ 	color: black !important;
+  }
+
+
+#TestOverlay { 
+	width: 20%; 
+	height: 5%; 
+	bottom: 0;
+	position: fixed; 
+	z-index: 2147; 
+	background-color: blue;
+	overflow-y: hidden;
+
+	/* Color properties */
+	background-color: transparent;
+  	background:rgba(0,0,0,0.6);
+    opacity:0.8;
+
+    /* Box shadowing properties */
+	-webkit-box-shadow:0 0 20px blue; 
+    -moz-box-shadow: 0 0 20px blue; 
+    box-shadow:0 0 20px blue;
+
+ }
+
+</style>
+
+
+
   
 <body>
-<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-<script src="script.js"></script>
-<div id="camera">
-    <video autoplay="true" id="video"></video>
+<!--<div style="background-color: blue; width: 200px; height: 200px; position: absolute; z-index: 2147"></div> --> 
+<div id="overlay">
+	<div class="ui styled accordion" style="background-color: transparent; color: white;">
+  <div class="title">
+    <font color="white"><i class="dropdown icon"></i></font>
+    <font color="white">Customer Profile</font>
+  </div>
+  <div class="content">
+    <font color="white">Customer Overview</font>
+    <div class="accordion transition visible" style="display: block !important;">
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Demographics
+      </div>
+      <div class="content">
+          <font color="black">Name: Suzan Szoller <br>
+          Age: 25 <br>
+          Location: Da Valley
+          </font>
+      </div>
+      <!--<div class="content">
+        <p class="transition hidden">Level 1A Contents</p>
+        <div class="accordion transition hidden">
+          <div class="title active">
+              <i class="dropdown icon"></i>
+              Level 1A-A
+          </div>
+          <div class="content active">
+              Level 1A-A Contents
+          </div>
+          <div class="title">
+              <i class="dropdown icon"></i>
+              Level 1A-B
+          </div>
+          <div class="content">
+              Level 1A-B Contents
+          </div>
+        </div>
+      </div> -->
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Credit Score <br>
+      </div>
+      <div class="content">
+          <font color="green">760</font> <br>
+      </div>
+      <div class="title"> 
+          <i class="dropdown icon"></i> 
+          Card Usage
+      </div> 
+      <div class="content"> 
+      	<div class="ui teal progress" data-percent="74" id="cardusagebar">
+  <div class="bar"></div>
+  <div class="label">74% Used</div>
 </div>
+      </div>
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Rating
+      </div>
+      <div class="content">
+          <div class="ui star rating" data-rating="3"></div>
+      </div>
+    </div>
+  </div>
+  <div class="title">
+    <font color="white"><i class="dropdown icon"></i></font>
+    <font color="white">Recent Transactions</font>
+  </div>
+  <div class="content">
+    <font color="white">Recent Transactions</font>
+    <div class="accordion">
+    <div class="title">
+          <i class="dropdown icon"></i>
+          Analytics
+      </div>
+      <div class="content">
+          Total Spending: $1855.55 
+          <br>
+          STD Spending: $38.55
+      </div>
+      <div class="title">
+        <i class="dropdown icon"></i>
+        8/28/2017
+      </div>
+      <div class="content">
+      	  <font color="black">$9.95<br>
+          Whole Foods: Hot Bar
+          </font>
+      </div>
+      <!--<div class="active content">
+        <p>Level 2A Contents</p>
+        <div class="accordion">
+          <div class="title">
+              <i class="dropdown icon"></i>
+              Level 2A-A
+          </div>
+          <div class="content">
+              Level 2A-A Contents
+          </div>
+          <div class="title">
+              <i class="dropdown icon"></i>
+              Level 2A-B
+          </div>
+          <div class="content">
+              Level 2A-B Contents
+          </div>
+        </div>
+      </div> -->
+      <div class="title">
+          <i class="dropdown icon"></i>
+          8/27/2017
+      </div>
+      <div class="content">
+          $5.55 <br>
+          Walmart: Apples
+      </div>
+      <div class="title">
+          <i class="dropdown icon"></i>
+          8/25/2017
+      </div>
+      <div class="content">
+          $55.58 <br>
+          King of Pops - Thai Tea x 25
+      </div>
+      <div class="title">
+          <i class="dropdown icon"></i>
+          8/22/2017
+      </div>
+      <div class="content">
+          $15.58 <br>
+          Microsoft - Mouse
+      </div>
+      <div class="title">
+          <i class="dropdown icon"></i>
+          8/22/2017
+      </div>
+      <div class="content">
+          $855.55 <br>
+          Neiman Marcus - Shirt
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<div id="TestOverlay"><center><font color= "white"><h1 id="TestStreamCoords">TEST</h1></font></center></div> 
+
+
+<div id="camera">
+    <video autoplay="true" id="video" style="width:100%;"></video>
+</div>
+
+<!-- SCRIPTS -->
+
+
+<!-- Accordion -->
+<script>
+$('.ui.accordion')
+  .accordion()
+;
+</script>
+<!-- End of Accordion -->
+
+
+<!-- Rating stars --> 
+<script>
+$('.ui.rating')
+  .rating({
+    initialRating: 3,
+    maxRating: 5
+  })
+;
+</script>
+<!-- End of rating stars -->
+
+
+<!-- Progress Bar --> 
+<script> 
+$('#cardusagebar').progress();
+</script>
+
 </body>
 </html>
