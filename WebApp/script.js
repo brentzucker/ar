@@ -2,11 +2,15 @@ console.log('script.js');
 
 // API Variables
 var url_api = 'http://localhost:80/detectFace';
-var query_every_ms = 1000;
+var query_every_ms = 500;
 var payload = {};
 
 // HTML Variables
 var video = null;
+var videoWidth = 1;
+var videoHeight = 1;
+var scaleFactorX = 0;
+var scaleFactorY = 0;
 var canvas = null;
 var base64 = null;
 
@@ -23,13 +27,44 @@ setInterval(function() {
 
 		// TODO: Move this to MVC
 		$('#TestStreamCoords').text(JSON.stringify(data));
+
+		// Draw Rectangles
+
+		// Clear out Existing Rectangle
+		$('#photbox_rect').attr('x', 0);
+		$('#photbox_rect').attr('y', 0);
+		$('#photbox_rect').attr('width', 0);
+		$('#photbox_rect').attr('height', 0);
+		
+		// TODO: Make Dynamic.. only works for 1 rectangle
+		if (data.length > 0) {
+			$('#photbox_rect').attr('x', data[0]['x'] * scaleFactorX);
+			$('#photbox_rect').attr('y', data[0]['y'] * scaleFactorY);
+			$('#photbox_rect').attr('width', data[0]['w'] * scaleFactorX);
+			$('#photbox_rect').attr('height', data[0]['h'] * scaleFactorY);
+			for (var key in data[0]) {
+				$('#photbox_rect').attr(key, data[0][key]);
+			} 
+		}
 	});
 }, query_every_ms);
+
+// Update SVG size every 500 ms
+setInterval(function() {
+	var w = $('#camera').width();
+	var h = $('#camera').height();
+	$('#photobox').width(w);
+	$('#photobox').height(h);
+
+	scaleFactorX = w / video.videoWidth;
+	scaleFactorY = h / video.videoHeight;
+}, 500);
 
 // On Page load, link HTML video
 window.onload = function() {
 	console.log('loaded');
 	video = document.getElementById('video');
+	console.log(video.videoHeight);
 };
 
 // Grab Webcam
