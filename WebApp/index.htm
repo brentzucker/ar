@@ -98,11 +98,12 @@
 <svg id="photobox">
   <rect id="photbox_rect" x="1" y="1" width="1" height="1" style="fill:blue;stroke:black;stroke-width:5;fill-opacity:0.0;stroke-opacity:0.9;" /></rect>
 </svg>
+
+
 <!-- Left Accordion -->
 <div id="overlay">
-
-
-	<div class="ui styled accordion" style="background-color: transparent; color: white;">
+<!-- Customer Profile Accordion -->
+<div class="ui styled accordion" style="background-color: transparent; color: white;">
   <div class="title">
     <font color="white"><i class="dropdown icon"></i></font>
     <font color="white">Customer Profile</font>
@@ -115,36 +116,17 @@
           Demographics
       </div>
       <div class="content">
-          <font color="black">Name: Suzan Szoller <br>
-          Age: 25 <br>
-          Location: Da Valley
+          <font color="black">Name: Adam Lieberman <br>
+          Age: 23 <br>
+          Location: Atlanta, GA
           </font>
       </div>
-      <!--<div class="content">
-        <p class="transition hidden">Level 1A Contents</p>
-        <div class="accordion transition hidden">
-          <div class="title active">
-              <i class="dropdown icon"></i>
-              Level 1A-A
-          </div>
-          <div class="content active">
-              Level 1A-A Contents
-          </div>
-          <div class="title">
-              <i class="dropdown icon"></i>
-              Level 1A-B
-          </div>
-          <div class="content">
-              Level 1A-B Contents
-          </div>
-        </div>
-      </div> -->
       <div class="title">
           <i class="dropdown icon"></i>
           Credit Score <br>
       </div>
       <div class="content">
-          <font color="green">760</font> <br>
+          <center><font color="green" size="20">760</font></center> <br>
       </div>
       <div class="title"> 
           <i class="dropdown icon"></i> 
@@ -152,9 +134,9 @@
       </div> 
       <div class="content"> 
       	<div class="ui teal progress" data-percent="74" id="cardusagebar">
-  <div class="bar"></div>
-  <div class="label">74% Used</div>
-</div>
+          <div class="bar"></div>
+            <div class="label">74% Used</div>
+        </div>
       </div>
       <div class="title">
           <i class="dropdown icon"></i>
@@ -165,6 +147,8 @@
       </div>
     </div>
   </div>
+
+  <!-- Recent Transactions Drop Down -->
   <div class="title">
     <font color="white"><i class="dropdown icon"></i></font>
     <font color="white">Recent Transactions</font>
@@ -190,25 +174,6 @@
           Whole Foods: Hot Bar
           </font>
       </div>
-      <!--<div class="active content">
-        <p>Level 2A Contents</p>
-        <div class="accordion">
-          <div class="title">
-              <i class="dropdown icon"></i>
-              Level 2A-A
-          </div>
-          <div class="content">
-              Level 2A-A Contents
-          </div>
-          <div class="title">
-              <i class="dropdown icon"></i>
-              Level 2A-B
-          </div>
-          <div class="content">
-              Level 2A-B Contents
-          </div>
-        </div>
-      </div> -->
       <div class="title">
           <i class="dropdown icon"></i>
           8/27/2017
@@ -243,20 +208,99 @@
       </div>
     </div>
   </div>
-</div>
-</div>
 
+
+  <div class="title">
+    <font color="white"><i class="dropdown icon"></i></font>
+    <font color="white">Insights</font>
+  </div>
+  <div class="content">
+    <font color="white">Insights</font>
+    <div class="accordion transition visible" style="display: block !important;">
+    <div class="title">
+          <i class="dropdown icon"></i>
+          Churn
+      </div>
+      <div class="content">
+          <font color="black">Probability: 80% in 3 months <br>
+          </font>
+      </div>
+    <div class="title">
+          <i class="dropdown icon"></i>
+          Creidt
+      </div>
+      <div class="content">
+          <font color="black">Current Card: Visa <br>
+          Recommended Card: Discover
+          </font>
+      </div>
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Checking
+      </div>
+      <div class="content">
+          <font color="black">Num Accounts: 1 <br>
+          Account Name: 22342 <br>
+          Balance: $12,800 <br>
+          </font>
+      </div>
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Savings
+      </div>
+      <div class="content">
+          <font color="black">Num Accounts: 1 <br>
+          Account Name: 44532 <br>
+          Balance: $45,678 <br>
+          </font>
+      </div>
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Loans
+      </div>
+      <div class="content">
+          <font color="black">Num Loans: 0 <br>
+          Eligible: Yes <br> 
+          Loan Amount: $350,000 
+          </font>
+      </div>
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Cluster
+      </div>
+      <div class="content">
+          <font color="black">Cluster Num: 3<br>
+          Spending: Low <br> 
+          Saving: High <br>
+          Avg Income: $90,000 <br> 
+          Avg Age: 32 <br> 
+
+          </font>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
 <!-- End of Left Accordion -->
 
+
+
+<!-- Testing Coordinate Stream --> 
 <div id="TestOverlay"><center><font color= "white"><h1 id="TestStreamCoords">TEST</h1></font></center></div> 
 
+<!-- End of Testing Coordinate Stream -->
 
+
+<!-- Camera -->
 <div id="camera">
     <video autoplay="true" id="video" style="width:100%;"></video>
 </div>
+<!-- End of Camera -->
+
 
 <!-- SCRIPTS -->
-
+<!-- TODO: Put these into 1 script tag -->
 
 
 <!-- Accordion -->
@@ -266,6 +310,7 @@ $('.ui.accordion')
 ;
 </script>
 <!-- End of Accordion -->
+
 
 
 <!-- Rating stars --> 

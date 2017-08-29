@@ -42,9 +42,9 @@ setInterval(function() {
 			$('#photbox_rect').attr('y', data[0]['y'] * scaleFactorY);
 			$('#photbox_rect').attr('width', data[0]['w'] * scaleFactorX);
 			$('#photbox_rect').attr('height', data[0]['h'] * scaleFactorY);
-			for (var key in data[0]) {
-				$('#photbox_rect').attr(key, data[0][key]);
-			} 
+			//for (var key in data[0]) {
+				//$('#photbox_rect').attr(key, data[0][key]);
+			//} 
 		}
 	});
 }, query_every_ms);
