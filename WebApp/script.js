@@ -35,6 +35,8 @@ setInterval(function() {
 		$('#photbox_rect').attr('y', 0);
 		$('#photbox_rect').attr('width', 0);
 		$('#photbox_rect').attr('height', 0);
+		$('#rect_name').attr('x',0)
+		$('#rect_name').attr('y',0)
 		
 		// TODO: Make Dynamic.. only works for 1 rectangle
 		if (data.length > 0) {
@@ -42,6 +44,8 @@ setInterval(function() {
 			$('#photbox_rect').attr('y', data[0]['y'] * scaleFactorY);
 			$('#photbox_rect').attr('width', data[0]['w'] * scaleFactorX);
 			$('#photbox_rect').attr('height', data[0]['h'] * scaleFactorY);
+			$('#rect_name').attr('x',data[0]['x']*scaleFactorX);
+			$('#rect_name').attr('y',data[0]['y']*scaleFactorY - 10);
 			//for (var key in data[0]) {
 				//$('#photbox_rect').attr(key, data[0][key]);
 			//} 
