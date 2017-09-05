@@ -118,10 +118,42 @@
           Demographics
       </div>
       <div class="content">
-          <font color="black">Name: Adam Lieberman <br>
+          <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12"> 
+            <tr>
+              <td>Name</td>
+              <td>Adam Lieberman</td>
+            </tr>
+            <tr>
+              <td>Age</td>
+              <td>23</td>
+            </tr>
+            <tr>
+              <td>Ethnicity</td>
+              <td>Mixed</td>
+            </tr>
+            <tr>
+              <td>Location</td>
+              <td>Atlanta, GA</td>
+            </tr>
+            <tr>
+              <td>Zip</td>
+              <td>30318</td>
+            </tr>
+            <tr>
+              <td>Maritial Status</td>
+              <td>Single</td>
+            </tr>
+            <tr>
+              <td>Employment Status</td>
+              <td>Employed</td>
+            </tr>
+
+          </thead>
+          </table>
+          <!--<font color="black">Name: Adam Lieberman <br>
           Age: 23 <br>
           Location: Atlanta, GA
-          </font>
+          </font> -->
       </div>
       <div class="title">
           <i class="dropdown icon"></i>
@@ -135,11 +167,35 @@
           Card Usage
       </div> 
       <div class="content"> 
-      	<div class="ui teal progress" data-percent="74" id="cardusagebar">
+      <div class="ui red progress" data-percent="93" id="cardusagebar3">
           <div class="bar"></div>
-            <div class="label">74% Used</div>
+            <div class="label">Chase: 93% Used</div>
+        </div>
+      	<div class="ui yellow progress" data-percent="74" id="cardusagebar">
+          <div class="bar"></div>
+            <div class="label">Visa: 74% Used</div>
+        </div>
+        <div class="ui green progress" data-percent="38" id="cardusagebar2">
+          <div class="bar"></div>
+            <div class="label">Discover: 38% Used</div>
         </div>
       </div>
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Debit Card
+      </div>
+      <div class="content">
+         <div class="ui tiny blue horizontal statistic" >
+            <div class="value">
+            $2,204.00
+            </div>
+          <div class="label">
+            Balance
+          </div>
+      </div>
+      </div>
+
+
       <div class="title">
           <i class="dropdown icon"></i>
           Rating
@@ -221,10 +277,11 @@
     <div class="accordion transition visible" style="display: block !important;">
     <div class="title">
           <i class="dropdown icon"></i>
-          Churn
+          Customer Lifetime Value
       </div>
       <div class="content">
-          <font color="black">Probability: 80% in 3 months <br>
+          LTV: $zzz.zzz <br>
+          <font color="black">Churn: Probability: 80% in 3 months <br>
           </font>
       </div>
     <div class="title">
@@ -268,10 +325,10 @@
       </div>
       <div class="title">
           <i class="dropdown icon"></i>
-          Cluster
+          Segmentation
       </div>
       <div class="content">
-          <font color="black">Cluster Num: 3<br>
+          <center><font color="black">Young Professionals</center><br>
           Spending: Low <br> 
           Saving: High <br>
           Avg Income: $90,000 <br> 
@@ -330,7 +387,11 @@ $('.ui.rating')
 <!-- Progress Bar --> 
 <script> 
 $('#cardusagebar').progress();
+$('#cardusagebar2').progress();
+$('#cardusagebar3').progress();
+$('#cardusagebar4').progress();
 </script>
+
 
 </body>
 </html>
