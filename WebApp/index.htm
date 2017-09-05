@@ -121,31 +121,31 @@
           <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12"> 
             <tr>
               <td>Name</td>
-              <td>Adam Lieberman</td>
+              <td id='demographics_name'>Adam Lieberman</td>
             </tr>
             <tr>
               <td>Age</td>
-              <td>23</td>
+              <td id='demographics_age'>23</td>
             </tr>
             <tr>
               <td>Ethnicity</td>
-              <td>Mixed</td>
+              <td id='demographics_ethnicity'>Mixed</td>
             </tr>
             <tr>
               <td>Location</td>
-              <td>Atlanta, GA</td>
+              <td id='demographics_location'>Atlanta, GA</td>
             </tr>
             <tr>
               <td>Zip</td>
-              <td>30318</td>
+              <td id='demographics_zip'>30318</td>
             </tr>
             <tr>
               <td>Maritial Status</td>
-              <td>Single</td>
+              <td id='demographics_maritial_status'>Single</td>
             </tr>
             <tr>
               <td>Employment Status</td>
-              <td>Employed</td>
+              <td id='demographics_employment_status'>Employed</td>
             </tr>
           </table>
           <!--<font color="black">Name: Adam Lieberman <br>
@@ -157,7 +157,7 @@
           <i class="dropdown icon"></i>
           Credit Score <br>
       </div>
-      <div class="content">
+      <div class="content" id='credit_score'>
           <center><font color="green" size="20">760</font></center> <br>
       </div>
       <div class="title"> 
@@ -167,15 +167,15 @@
       <div class="content"> 
       <div class="ui red progress" data-percent="93" id="cardusagebar3">
           <div class="bar"></div>
-            <div class="label">Chase: 93% Used</div>
+            <div class="label" id='card1label'>Chase: 93% Used</div>
         </div>
       	<div class="ui yellow progress" data-percent="74" id="cardusagebar">
           <div class="bar"></div>
-            <div class="label">Visa: 74% Used</div>
+            <div class="label" id='card2label'>Visa: 74% Used</div>
         </div>
         <div class="ui green progress" data-percent="38" id="cardusagebar2">
           <div class="bar"></div>
-            <div class="label">Discover: 38% Used</div>
+            <div class="label" id='card3label'>Discover: 38% Used</div>
         </div>
       </div>
       <div class="title">
@@ -184,7 +184,7 @@
       </div>
       <div class="content">
          <div class="ui tiny blue horizontal statistic" >
-            <div class="value">
+            <div class="value" id='debit_card_balance'>
             $2,204.00
             </div>
           <div class="label">
@@ -211,7 +211,7 @@
       <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12.5"> 
             <tr>
               <td>Total Monthly Spending</td>
-              <td>$433.86</td>
+              <td id='total_monthly_spending'>$433.86</td>
             </tr>
           </table>
           <!--Total Spending: $1855.55 
@@ -327,19 +327,19 @@
           <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12.5"> 
             <tr>
               <td>Lifetime Value</td>
-              <td>$375,225.22</td>
+              <td id='ltv_value'>$375,225.22</td>
             </tr>
             <tr>
               <td>Predicted Churn</td>
-              <td>6 months</td>
+              <td id='ltv_date'>6 months</td>
             </tr>
             <tr> 
               <td>Predicted Probability of Churn</td>
-              <td>80%</td>
+              <td id='ltv_probability'>80%</td>
             </tr>
             <tr>
               <td>Rating</td>
-              <td><div class="ui star rating" data-rating="3"></div></td>
+              <td id='rating'><div class="ui star rating" data-rating="3" id="star_rating"></div></td>
             </tr>
 
           </thead>
@@ -353,23 +353,23 @@
     <div class="content"> 
     <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12">        <tr>
               <td>High Usage Card</td>
-              <td>Chase</td>
+              <td id="high_usage_card">Chase</td>
             </tr>
             <tr>
               <td>Recommended Card</td>
-              <td>Master Card</td>
+              <td id="recommended_card">Master Card</td>
             </tr>
             <tr>
               <td>Recommendation Reason</td>
-              <td>5% cash back groceries</td>
+              <td id="recommendation_reason">5% cash back groceries</td>
             </tr>
             <tr>
               <td>Predicted Next Month Spending</td>
-              <td>$650.22</td>
+              <td id="predicted_next_month_spending">$650.22</td>
             </tr>
             <tr> 
               <td>Predicted High Spending Category</td>
-              <td>Food/Groceries</td>
+              <td id="predicted_high_spending_category">Food/Groceries</td>
             </tr>
           </table>
     </div>
@@ -415,21 +415,21 @@
           Classification
       </div>
       <div class="content">
-          <center><h4>Young Professionals</h4></center><br>
+          <center><h4 id="cluster_group_name">Young Professionals</h4></center><br>
 
 
           <table class="ui blue inverted table" style="color:white; font-size: 12.5"> 
             <tr>
               <td>Average Income</td>
-              <td>$65,000-85,000</td>
+              <td id="cluster_average_income">$65,000-85,000</td>
             </tr>
             <tr>
               <td>Average Expense</td>
-              <td>$55,000-72,000</td>
+              <td id="cluster_average_expense">$55,000-72,000</td>
             </tr>
             <tr>
               <td>Average 401K allotment</td>
-              <td>6-10%</td>
+              <td id="cluster_401k_allotment">6-10%</td>
             </tr>
             <!--<tr> 
               <td>Max Allowed Amount</td>
@@ -440,19 +440,19 @@
           <table class="ui orange inverted table" style="color:white; font-size: 12.5"> 
             <tr>
               <td>Rent</td>
-              <td>50%</td>
+              <td id="category1">50%</td>
             </tr>
             <tr>
               <td>Groceries</td>
-              <td>15%</td>
+              <td id="category2">15%</td>
             </tr>
             <tr>
               <td>Restaurants & Bars</td>
-              <td>20%</td>
+              <td id="category3">20%</td>
             </tr>
             <tr>
               <td>Uber</td>
-              <td>15%</td>
+              <td id="category4">15%</td>
             </tr>
             <!--<tr> 
               <td>Max Allowed Amount</td>
@@ -468,19 +468,19 @@
           <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12.5"> 
             <tr>
               <td>Spending within Group</td>
-              <td>High</td>
+              <td id="comparison_spending_in_group">High</td>
             </tr>
             <tr>
               <td>Spending in General</td>
-              <td>Low</td>
+              <td id="comparison_spending_general">Low</td>
             </tr>
             <tr>
               <td>Saving within Group</td>
-              <td>High</td>
+              <td id="comparison_saving_in_group">High</td>
             </tr>
             <tr>
               <td>Saving in General</td>
-              <td>High</td>
+              <td id="comparison_saving_general">High</td>
             </tr>
             <!--<tr> 
               <td>Max Allowed Amount</td>
@@ -503,19 +503,19 @@
         <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12.5"> 
             <tr>
               <td>Has 401K</td>
-              <td>Yes</td>
+              <td id="has_401k">Yes</td>
             </tr>
             <tr>
               <td>Has IRA</td>
-              <td>No</td>
+              <td id="has_IRA">No</td>
             </tr>
             <tr>
               <td>Amount in Savings</td>
-              <td>$82,765.55</td>
+              <td id="amount_in_savings">$82,765.55</td>
             </tr>
             <tr>
               <td>Specified Risk Tolerance</td>
-              <td>Low</td>
+              <td id="specified_risk_tolerance">Low</td>
             </tr>
           </table>
           <form class="ui fluid form">
@@ -570,7 +570,7 @@
       <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12.5"> 
             <tr>
               <td>Method</td>
-              <td>Grocery Chatbot</td>
+              <td id='suggested_engagement_method'>Grocery Chatbot</td>
             </tr>
             </table>
       </div>
