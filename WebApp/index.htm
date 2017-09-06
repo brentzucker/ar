@@ -48,6 +48,49 @@
     box-shadow:0 0 20px blue;
  }
 
+ #CreditBuddyoverlay { 
+
+  /*Position, Size, Z-index Properties    */
+  width: 20%; 
+  height: 75%; 
+  position: absolute; 
+  z-index: 2200; 
+  background-color: blue;
+
+  /* Color properties */
+  background-color: transparent;
+    background:rgba(0,0,0,0.6);
+    opacity:0.8;
+
+    /* Box shadowing properties */
+  -webkit-box-shadow:0 0 20px blue; 
+    -moz-box-shadow: 0 0 20px blue; 
+    box-shadow:0 0 20px blue;
+ }
+
+ #Rightoverlay { 
+
+  /*Position, Size, Z-index Properties    */
+  width: 20%; 
+  /*height: 35%; */
+  position: absolute; 
+  z-index: 2147; 
+  background-color: blue;
+  overflow-y: scroll; /*hidden */ 
+  float: right;
+  right: 0px;
+
+  /* Color properties */
+  background-color: transparent;
+    background:rgba(0,0,0,0.6);
+    opacity:0.8;
+
+    /* Box shadowing properties */
+  -webkit-box-shadow:0 0 20px blue; 
+    -moz-box-shadow: 0 0 20px blue; 
+    box-shadow:0 0 20px blue;
+ }
+
  .content { 
  	color: black !important;
   }
@@ -74,6 +117,30 @@
 
  }
 
+ #BottomOverlay { 
+  width: 20%; 
+  height: 30%; 
+  bottom: 2;
+  right: 0;
+  position: fixed; 
+  z-index: 2147; 
+  background-color: blue;
+  overflow-y: hidden;
+  /*overflow: scroll; */
+
+  /* Color properties */
+  background-color: transparent;
+    /*background:rgba(0,0,0,0.6); */
+    /*opacity:0.8; */
+    opacity: 1.0;
+
+    /* Box shadowing properties */
+  /*-webkit-box-shadow:0 0 20px blue; 
+    -moz-box-shadow: 0 0 20px blue; 
+    box-shadow:0 0 20px blue; */
+
+ }
+
 
 
  #photobox { 
@@ -82,7 +149,12 @@
   position: absolute; 
   z-index: 2000; 
   width: 100%
+  /*height: 100%; */
  }
+
+ .full-circle.ui.animated.button .hidden.content {
+  line-height: 100%;
+}
 
 
 </style>
@@ -96,7 +168,7 @@
 
 
 <!-- Draw Rectangle Around people --> 
-<svg id="photobox">
+<svg id="photobox" style="z-index: 1000">
   <rect id="photbox_rect" x="1" y="1" width="1" height="1" style="fill:blue;stroke:black;stroke-width:5;fill-opacity:0.0;stroke-opacity:0.9;" /></rect>
   <text id="rect_name" x="1" y="1" font-family="Verdana" font-size="35" fill="white">Adam Lieberman</text>
 </svg>
@@ -126,6 +198,10 @@
             <tr>
               <td>Age</td>
               <td id='demographics_age'>23</td>
+            </tr>
+            <tr>
+              <td>Birthdate</td>
+              <td id='demographics_birthdate'>08/01/1994</td>
             </tr>
             <tr>
               <td>Ethnicity</td>
@@ -341,8 +417,6 @@
               <td>Rating</td>
               <td id='rating'><div class="ui star rating" data-rating="3" id="star_rating"></div></td>
             </tr>
-
-          </thead>
           </table>
       </div>
 
@@ -374,42 +448,6 @@
           </table>
     </div>
 
-
-
-
-
-
-
-    <!--<div class="title">
-          <i class="dropdown icon"></i>
-          Credit
-      </div>
-      <div class="content">
-          <font color="black">Current Card: Visa <br>
-          Recommended Card: Discover
-          </font>
-      </div> -->
-      <!--<div class="title">
-          <i class="dropdown icon"></i>
-          Checking
-      </div>
-      <div class="content">
-          <font color="black">Num Accounts: 1 <br>
-          Account Name: 22342 <br>
-          Balance: $12,800 <br>
-          </font>
-      </div>
-      <div class="title">
-          <i class="dropdown icon"></i>
-          Savings
-      </div>
-      <div class="content">
-          <font color="black">Num Accounts: 1 <br>
-          Account Name: 44532 <br>
-          Balance: $45,678 <br>
-          </font>
-      </div> -->
-
       <div class="title">
           <i class="dropdown icon"></i>
           Classification
@@ -431,10 +469,6 @@
               <td>Average 401K allotment</td>
               <td id="cluster_401k_allotment">6-10%</td>
             </tr>
-            <!--<tr> 
-              <td>Max Allowed Amount</td>
-              <td>$65,000.00</td>
-            </tr> -->
           </table>
           <center><h4>Categories of Spending</h4></center>
           <table class="ui orange inverted table" style="color:white; font-size: 12.5"> 
@@ -454,10 +488,6 @@
               <td>Uber</td>
               <td id="category4">15%</td>
             </tr>
-            <!--<tr> 
-              <td>Max Allowed Amount</td>
-              <td>$65,000.00</td>
-            </tr> -->
           </table>
 
 
@@ -482,17 +512,7 @@
               <td>Saving in General</td>
               <td id="comparison_saving_general">High</td>
             </tr>
-            <!--<tr> 
-              <td>Max Allowed Amount</td>
-              <td>$65,000.00</td>
-            </tr> -->
           </table>
-          <!--Spending: Low <br> 
-          Saving: High <br>
-          Avg Income: $90,000 <br> 
-          Avg Age: 32 <br> 
-
-          </font> -->
       </div>
 
             <div class="title">
@@ -536,10 +556,6 @@
           Loans
       </div>
       <div class="content">
-          <!--<font color="black">Num Loans: 0 <br>
-          Eligible: Yes <br> 
-          Loan Amount: $350,000 
-          </font> -->
           <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12.5"> 
             <tr>
               <td>Eligible</td>
@@ -584,12 +600,380 @@
   <div class="field">
     <input type="text" placeholder="Enter notes here">
   </div>
+  </form>
   </div>
     </div>
   </div>
+  <div class="title">
+    <font color="white"><i class="dropdown icon"></i></font>
+    <font color="white">Special Events</font>
+  </div>
+  <div class="content">
+    <div class="accordion transition visible" style="display: block !important;">
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Holidays
+      </div>
+      <div class="content">
+        Thanksgiving <br>
+        Adam's Birthday
+      </div>
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Sporting Events
+      </div>
+      <div class="content">
+        Falcons Game <br>
+      </div>
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Music Events
+      </div>
+      <div class="content">
+        Taylor Swift <br>
+      </div>
+</div>
+</div>
+
+<div class="title">
+    <font color="white"><i class="dropdown icon"></i></font>
+    <font color="white">Quick Notes</font>
+  </div>
+<div class="content">
+<div class="ui vertical container segment shapeSegment">
+      <div class="ui middle aligned stackable grid container">
+        <div class="row">
+          <div class="sixteen wide column">
+            <div class="ui tab active" data-tab="examples">
+              <div class="ui divider"></div>
+              <div class="demo auto ui shape">
+                <div class="sides">
+                  <div class="active first side">
+                    <font color="white"><p>Today is Adam's Birthday</p></font>
+                  </div>
+                  <div class="second side">
+                    <font color="white"><p>Adam should open an IRA account</p></font>
+                  </div>
+                  <div class="third side">
+                    <font color="white"><p>Switching to card X could save Adam 5% each month</p></font>
+                  </div>
+                </div>
+              </div>
+              <div class="ui ignored divider"></div>
+              <div class="ui ignored icon direction buttons">
+                <div class="ui button" data-animation="flip" title="Flip Left" data-direction="left"><i class="left long arrow icon"></i></div>
+                <div class="ui button" data-animation="flip" title="Flip Up" data-direction="up"><i class="up long arrow icon"></i></div>
+                <div class="ui icon button" data-animation="flip" title="Flip Down" data-direction="down"><i class="down long arrow icon"></i></div>
+                <div class="ui icon button" data-animation="flip" title="Flip Right" data-direction="right"><i class="right long arrow icon"></i></div>
+              </div>
+              <!--<div class="ui ignored icon direction buttons">
+                <div class="ui button" title="Flip Over" data-animation="flip" data-direction="over"><i class="retweet icon"></i></div>
+                <div class="ui button" title="Flip Back" data-animation="flip" data-direction="back"><i class="flipped retweet icon"></i></div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="title">
+    <font color="white"><i class="dropdown icon"></i></font>
+    <font color="white">Recommended Promotions</font>
+  </div>
+<div class="content">
+</div>
 
 </div>
 </div>
+
+<div id="Rightoverlay">
+<div class="ui styled accordion" style="background-color: transparent; color: white;">
+  <div class="title">
+    <font color="white"><i class="dropdown icon"></i></font>
+    <font color="white">Special Events</font>
+  </div>
+  <div class="content">
+    <div class="accordion transition visible" style="display: block !important;">
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Holidays
+      </div>
+      <div class="content">
+        Thanksgiving <br>
+        Adam's Birthday
+      </div>
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Sporting Events
+      </div>
+      <div class="content">
+        Falcons Game <br>
+      </div>
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Music Events
+      </div>
+      <div class="content">
+        Taylor Swift <br>
+      </div>
+</div>
+</div>
+
+<div class="title">
+    <font color="white"><i class="dropdown icon"></i></font>
+    <font color="white">Quick Notes</font>
+  </div>
+<div class="content">
+<div class="ui vertical container segment shapeSegment">
+      <div class="ui middle aligned stackable grid container">
+        <div class="row">
+          <div class="sixteen wide column">
+            <div class="ui tab active" data-tab="examples">
+              <div class="ui divider"></div>
+              <div class="demo auto ui shape">
+                <div class="sides">
+                  <div class="active first side">
+                    <font color="white"><p>Today is Adam's Birthday</p></font>
+                  </div>
+                  <div class="second side">
+                    <font color="white"><p>Adam should open an IRA account</p></font>
+                  </div>
+                  <div class="third side">
+                    <font color="white"><p>Switching to card X could save Adam 5% each month</p></font>
+                  </div>
+                </div>
+              </div>
+              <div class="ui ignored divider"></div>
+              <div class="ui ignored icon direction buttons">
+                <div class="ui button" data-animation="flip" title="Flip Left" data-direction="left"><i class="left long arrow icon"></i></div>
+                <div class="ui button" data-animation="flip" title="Flip Up" data-direction="up"><i class="up long arrow icon"></i></div>
+                <div class="ui icon button" data-animation="flip" title="Flip Down" data-direction="down"><i class="down long arrow icon"></i></div>
+                <div class="ui icon button" data-animation="flip" title="Flip Right" data-direction="right"><i class="right long arrow icon"></i></div>
+              </div>
+              <!--<div class="ui ignored icon direction buttons">
+                <div class="ui button" title="Flip Over" data-animation="flip" data-direction="over"><i class="retweet icon"></i></div>
+                <div class="ui button" title="Flip Back" data-animation="flip" data-direction="back"><i class="flipped retweet icon"></i></div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="title">
+    <font color="white"><i class="dropdown icon"></i></font>
+    <font color="white">Recommended Promotions</font>
+  </div>
+<div class="content">
+</div>
+</div>
+</div>
+
+<!-- Bottom Box for Quick Info--> 
+<div id="BottomOverlay"> 
+<center><div id="test" class="ui circular animated button full-circle" style="bottom:0; position: fixed; background-color: #54B948 " tabindex="0">
+    <div class="visible content">Credit Buddy</div>
+    <div class="hidden content">
+        <i class="large black smile icon"></i>
+    </div></div></center>
+
+</div>
+<div class="ui modal test" style="z-index: -10; width: 60%; position: fixed; opacity: 2.5" id="">
+  <i class="close icon"></i>
+  <div class="header">
+    Credit Buddy
+  </div>
+  <div class="image content">
+    <div class="ui medium image">
+      <h3>Customer Goals:</h3>
+      <ul>
+      <li>Purchase $72,800 automobile</li>
+      <li>Have $275,000 in savings by 2020</li>
+      </ul>
+      <!--<img src="https://semantic-ui.com/images/avatar2/large/rachel.png"> -->
+    </div>
+    <div class="description">
+      <div class="ui header">Here are some tips to help Adam reach his credit goals.</div>
+      <p>Save $400/month to reduce spending to $1400.00 per month over a 12 month period.</p>
+      <p></p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui black deny button">
+      Exit
+    </div>
+    <!--<div class="ui positive right labeled icon button">
+      Yep, that's me
+      <i class="checkmark icon"></i>
+    </div> -->
+  </div>
+</div>
+<!--<center><h4><font color="white">Quick Notes</font></h4></center>
+<div class="ui vertical container segment shapeSegment">
+      <div class="ui middle aligned stackable grid container">
+        <div class="row">
+          <div class="sixteen wide column">
+            <div class="ui tab active" data-tab="examples">
+              <div class="ui divider"></div>
+              <div class="demo auto ui shape">
+                <div class="sides">
+                  <div class="active first side">
+                    <font color="white"><p>Today is Adam's Birthday</p></font>
+                  </div>
+                  <div class="second side">
+                    <font color="white"><p>Adam should open an IRA account</p></font>
+                  </div>
+                  <div class="third side">
+                    <font color="white"><p>Switching to card X could save Adam 5% each month</p></font>
+                  </div>
+                </div>
+              </div>
+              <div class="ui ignored divider"></div>
+              <div class="ui ignored icon direction buttons">
+                <div class="ui button" data-animation="flip" title="Flip Left" data-direction="left"><i class="left long arrow icon"></i></div>
+                <div class="ui button" data-animation="flip" title="Flip Up" data-direction="up"><i class="up long arrow icon"></i></div>
+                <div class="ui icon button" data-animation="flip" title="Flip Down" data-direction="down"><i class="down long arrow icon"></i></div>
+                <div class="ui icon button" data-animation="flip" title="Flip Right" data-direction="right"><i class="right long arrow icon"></i></div> 
+              </div> -->
+              <!--<div class="ui ignored icon direction buttons">
+                <div class="ui button" title="Flip Over" data-animation="flip" data-direction="over"><i class="retweet icon"></i></div>
+                <div class="ui button" title="Flip Back" data-animation="flip" data-direction="back"><i class="flipped retweet icon"></i></div>
+              </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+<!--<div class="ui card" style="overflow: scroll; bottom: 0; position: fixed">
+  <div class="content">
+    <div class="header">Quick Notes</div>
+  </div>
+  <div class="content">
+    <h4 class="ui sub header">Activity</h4>
+    <div class="ui small feed">
+      <div class="event">
+        <div class="content">
+          <div class="summary">
+             <a>Elliot Fu</a> added <a>Jenny Hess</a> to the project
+          </div>
+        </div>
+      </div>
+      <div class="event">
+        <div class="content">
+          <div class="summary">
+             <a>Stevie Feliciano</a> was added as an <a>Administrator</a>
+          </div>
+        </div>
+      </div>
+      <div class="event">
+        <div class="content">
+          <div class="summary">
+             <a>Helen Troy</a> added two pictures
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="extra content">
+    <button class="ui button">Join Project</button>
+  </div>
+</div> -->
+<!--<center><h4><font color='white'>Quick Notes</font></h4></center> -->
+<!--<button class="ui button yellow create_btn" type="button" id="test">Create</button>
+
+<div class="ui modal test" style="z-index: 10000">
+  <i class="close icon"></i>
+  <div class="header">
+    Profile Picture
+  </div>
+  <div class="image content">
+    <div class="ui medium image">
+      <img src="https://semantic-ui.com/images/avatar2/large/rachel.png">
+    </div>
+    <div class="description">
+      <div class="ui header">We've auto-chosen a profile image for you.</div>
+      <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
+      <p>Is it okay to use this photo?</p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui black deny button">
+      Nope
+    </div>
+    <div class="ui positive right labeled icon button">
+      Yep, that's me
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
+</div> -->
+<!-- End of Bottom Box -->
+
+
+<script>
+$('.shapeSegment .ui.button[data-shape=auto]').click(function(){
+    $('.shapeSegment .ui.button[data-shape]').removeClass('active');
+    $(this).addClass('active');
+    $('.shape').addClass('auto').removeClass('square').removeClass('irregular');
+  });
+
+  $('.shapeSegment .ui.button[data-shape=square]').click(function(){
+    $('.shapeSegment .ui.button[data-shape]').removeClass('active');
+    $(this).addClass('active');
+    $('.shape').addClass('square').removeClass('auto').removeClass('irregular');
+  });
+
+  $('.shapeSegment .ui.button[data-shape=irregular]').click(function(){
+    $('.shapeSegment .ui.button[data-shape]').removeClass('active');
+    $(this).addClass('active');
+    $('.shape').addClass('irregular').removeClass('auto').removeClass('square');
+  });
+
+  $('.shapeSegment .ui.button[data-direction=left]').click(function(){
+    $('.shape').shape('flip left');
+  });
+
+  $('.shapeSegment .ui.button[data-direction=up]').click(function(){
+    $('.shape').shape('flip up');
+  });
+
+  $('.shapeSegment .ui.button[data-direction=down]').click(function(){
+    $('.shape').shape('flip down');
+  });
+
+  $('.shapeSegment .ui.button[data-direction=right]').click(function(){
+    $('.shape').shape('flip right');
+  });
+
+  $('.shapeSegment .ui.button[data-direction=over]').click(function(){
+    $('.shape').shape('flip over');
+  });
+
+  $('.shapeSegment .ui.button[data-direction=back]').click(function(){
+    $('.shape').shape('flip back');
+  });
+</script>
+
+
+<script> 
+$(function(){
+  $("#test").click(function(){
+    $(".test").modal('show');
+  });
+  $(".test").modal({
+    closable: true
+  });
+});
+</script>
+
+
+
+
+
+
 <!-- End of Left Accordion -->
 
 <!-- Set the text for the id as follows: -->
@@ -602,6 +986,12 @@ document.getElementById("testt").innerHTML = "my text"
 
 <!-- End of Testing Coordinate Stream -->
 
+
+
+
+<!-- Set the id variables --> 
+<!--document.getElementById("testt").innerHTML = "my text" -->
+<!-- End of setting the id variables -->
 
 <!-- Camera -->
 <div id="camera">
@@ -642,6 +1032,13 @@ $('#cardusagebar').progress();
 $('#cardusagebar2').progress();
 $('#cardusagebar3').progress();
 $('#cardusagebar4').progress();
+</script>
+
+<!-- Circular Button -->
+<script>
+$('.full-circle').each(function() {
+  $(this).css('lineHeight', $(this).width() + 'px');
+});
 </script>
 
 
