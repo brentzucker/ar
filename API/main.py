@@ -80,6 +80,6 @@ def jsonp(func):
 
 
 if __name__ == '__main__':
-    host = 'localhost'
+    host = '0.0.0.0'
     port = 8080
     app.run(host=host, debug=True,port=port)
