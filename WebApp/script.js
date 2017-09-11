@@ -1,7 +1,7 @@
 console.log('script.js');
 
 // API Variables
-var url_api = 'http://localhost:80/detectFace';
+var url_api = 'http://localhost:8080/detectFace';
 var query_every_ms = 500;
 var payload = {};
 
