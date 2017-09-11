@@ -19,7 +19,8 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 def index():
 
     #The index page that will show the video
-    return render_template('index.html')
+    print 'index'
+    return render_template('index.htm')
 
 def gen(camera):
     while True:
@@ -80,6 +81,7 @@ def jsonp(func):
 
 
 if __name__ == '__main__':
+    # host = 'localhost'
     host = '0.0.0.0'
     port = 8080
     app.run(host=host, debug=True,port=port)

@@ -1,0 +1,1154 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>FIAR</title>
+
+	<!-- CV Service Script -->
+	<script src="script.js"></script>
+
+	<!-- JQuery CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <!-- Semantic UI CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.13/semantic.min.js"></script>
+
+    <!-- Glide CDN for Carousel -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css" rel="stylesheet"/>
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick.min.css" rel="stylesheet"/>
+
+
+
+</head>
+
+
+<style> 
+#camera { 
+	z-index: 1; 
+ }
+
+#overlay { 
+
+	/*Position, Size, Z-index Properties    */
+	width: 20%; 
+	height: 75%; 
+	position: absolute; 
+	z-index: 2147; 
+	background-color: blue;
+	overflow-y: scroll; /*hidden */ 
+
+	/* Color properties */
+	background-color: transparent;
+  	background:rgba(0,0,0,0.6);
+    opacity:0.8;
+
+    /* Box shadowing properties */
+	-webkit-box-shadow:0 0 20px blue; 
+    -moz-box-shadow: 0 0 20px blue; 
+    box-shadow:0 0 20px blue;
+ }
+
+ #CreditBuddyoverlay { 
+
+  /*Position, Size, Z-index Properties    */
+  width: 20%; 
+  height: 75%; 
+  position: absolute; 
+  z-index: 2200; 
+  background-color: blue;
+
+  /* Color properties */
+  background-color: transparent;
+    background:rgba(0,0,0,0.6);
+    opacity:0.8;
+
+    /* Box shadowing properties */
+  -webkit-box-shadow:0 0 20px blue; 
+    -moz-box-shadow: 0 0 20px blue; 
+    box-shadow:0 0 20px blue;
+ }
+
+ #Rightoverlay { 
+
+  /*Position, Size, Z-index Properties    */
+  width: 20%; 
+  /*height: 35%; */
+  position: absolute; 
+  z-index: 2147; 
+  background-color: blue;
+  overflow-y: scroll; /*hidden */ 
+  float: right;
+  right: 0px;
+
+  /* Color properties */
+  background-color: transparent;
+    background:rgba(0,0,0,0.6);
+    opacity:0.8;
+
+    /* Box shadowing properties */
+  -webkit-box-shadow:0 0 20px blue; 
+    -moz-box-shadow: 0 0 20px blue; 
+    box-shadow:0 0 20px blue;
+ }
+
+ .content { 
+ 	color: black !important;
+  }
+
+
+#TestOverlay { 
+	width: 20%; 
+	height: 5%; 
+	bottom: 0;
+	position: fixed; 
+	z-index: 2147; 
+	background-color: blue;
+	overflow-y: hidden;
+
+	/* Color properties */
+	background-color: transparent;
+  	background:rgba(0,0,0,0.6);
+    opacity:0.8;
+
+    /* Box shadowing properties */
+	-webkit-box-shadow:0 0 20px blue; 
+    -moz-box-shadow: 0 0 20px blue; 
+    box-shadow:0 0 20px blue;
+
+ }
+
+ #BottomOverlay { 
+  width: 20%; 
+  height: 30%; 
+  bottom: 2;
+  right: 0;
+  position: fixed; 
+  z-index: 2147; 
+  background-color: blue;
+  overflow-y: hidden;
+  /*overflow: scroll; */
+
+  /* Color properties */
+  background-color: transparent;
+    /*background:rgba(0,0,0,0.6); */
+    /*opacity:0.8; */
+    opacity: 1.0;
+
+    /* Box shadowing properties */
+  /*-webkit-box-shadow:0 0 20px blue; 
+    -moz-box-shadow: 0 0 20px blue; 
+    box-shadow:0 0 20px blue; */
+
+ }
+
+
+
+ #photobox { 
+
+  /*Position, Size, Z-index Properties    */
+  position: absolute; 
+  z-index: 2000; 
+  width: 100%
+  /*height: 100%; */
+ }
+
+ .full-circle.ui.animated.button .hidden.content {
+  line-height: 100%;
+}
+
+
+</style>
+
+
+
+  
+<body>
+
+<script>
+    console.log('script.js');
+
+// API Variables
+var url_api = 'http://localhost:8080/detectFace';
+var query_every_ms = 500;
+var payload = {};
+
+// HTML Variables
+var video = null;
+var videoWidth = 1;
+var videoHeight = 1;
+var scaleFactorX = 0;
+var scaleFactorY = 0;
+var canvas = null;
+var base64 = null;
+
+// Query API Every 1 Second
+setInterval(function() {
+
+	// Base64 Image
+	base64 = getImgAsBase64Str(video);
+	payload['base64'] = base64;
+
+	$.post(url_api, payload, function(data) {
+		// TODO: Plot coordinates on face
+		console.log(data);
+
+		// TODO: Move this to MVC
+		$('#TestStreamCoords').text(JSON.stringify(data));
+
+		// Draw Rectangles
+
+		// Clear out Existing Rectangle
+		$('#photbox_rect').attr('x', 0);
+		$('#photbox_rect').attr('y', 0);
+		$('#photbox_rect').attr('width', 0);
+		$('#photbox_rect').attr('height', 0);
+		$('#rect_name').attr('x',0)
+		$('#rect_name').attr('y',0)
+
+		// TODO: Make Dynamic.. only works for 1 rectangle
+		if (data.length > 0) {
+			$('#photbox_rect').attr('x', data[0]['x'] * scaleFactorX);
+			$('#photbox_rect').attr('y', data[0]['y'] * scaleFactorY);
+			$('#photbox_rect').attr('width', data[0]['w'] * scaleFactorX);
+			$('#photbox_rect').attr('height', data[0]['h'] * scaleFactorY);
+			$('#rect_name').attr('x',data[0]['x']*scaleFactorX);
+			$('#rect_name').attr('y',data[0]['y']*scaleFactorY - 10);
+			//for (var key in data[0]) {
+				//$('#photbox_rect').attr(key, data[0][key]);
+			//}
+		}
+	});
+}, query_every_ms);
+
+// Update SVG size every 500 ms
+setInterval(function() {
+	var w = $('#camera').width();
+	var h = $('#camera').height();
+	$('#photobox').width(w);
+	$('#photobox').height(h);
+
+	scaleFactorX = w / video.videoWidth;
+	scaleFactorY = h / video.videoHeight;
+}, 500);
+
+// On Page load, link HTML video
+window.onload = function() {
+	console.log('loaded');
+	video = document.getElementById('video');
+	console.log(video.videoHeight);
+};
+
+// Grab Webcam
+navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+	.then(function(stream) {
+		video.srcObject = stream;
+		video.play();
+	})
+	.catch(function(err) {
+		console.log("An error occured! " + err);
+	});
+
+/////////////////////////////////////////////////////////////////
+// Helper Functions
+
+// Grab video frame, converto base64 string
+function getImgAsBase64Str(video) {
+	var w = video.videoWidth;
+	var h = video.videoHeight;
+
+	// Create Canvas
+	canvas = document.createElement('canvas');
+	canvas.width = w;
+	canvas.height = h;
+
+	// Draw image on canvas
+	var ctx = canvas.getContext('2d');
+	ctx.drawImage(video, 0, 0);
+
+	// Get Image data
+	var data = canvas.toDataURL();
+
+	return data;
+}
+</script>
+<!--<div style="background-color: blue; width: 200px; height: 200px; position: absolute; z-index: 2147"></div> --> 
+
+
+
+<!-- Draw Rectangle Around people --> 
+<svg id="photobox" style="z-index: 1000">
+  <rect id="photbox_rect" x="1" y="1" width="1" height="1" style="fill:blue;stroke:black;stroke-width:5;fill-opacity:0.0;stroke-opacity:0.9;" /></rect>
+  <text id="rect_name" x="1" y="1" font-family="Verdana" font-size="35" fill="white">Adam Lieberman</text>
+</svg>
+
+
+<!-- Left Accordion -->
+<div id="overlay">
+<!-- Customer Profile Accordion -->
+<div class="ui styled accordion" style="background-color: transparent; color: white;">
+  <div class="title">
+    <font color="white"><i class="dropdown icon"></i></font>
+    <font color="white">Customer Profile</font>
+  </div>
+  <div class="content">
+    <font color="white">Customer Overview</font>
+    <div class="accordion transition visible" style="display: block !important;">
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Demographics
+      </div>
+      <div class="content">
+          <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12"> 
+            <tr>
+              <td>Name</td>
+              <td id='demographics_name'>Adam Lieberman</td>
+            </tr>
+            <tr>
+              <td>Age</td>
+              <td id='demographics_age'>23</td>
+            </tr>
+            <tr>
+              <td>Birthdate</td>
+              <td id='demographics_birthdate'>08/01/1994</td>
+            </tr>
+            <tr>
+              <td>Ethnicity</td>
+              <td id='demographics_ethnicity'>Mixed</td>
+            </tr>
+            <tr>
+              <td>Location</td>
+              <td id='demographics_location'>Atlanta, GA</td>
+            </tr>
+            <tr>
+              <td>Zip</td>
+              <td id='demographics_zip'>30318</td>
+            </tr>
+            <tr>
+              <td>Maritial Status</td>
+              <td id='demographics_maritial_status'>Single</td>
+            </tr>
+            <tr>
+              <td>Employment Status</td>
+              <td id='demographics_employment_status'>Employed</td>
+            </tr>
+          </table>
+          <!--<font color="black">Name: Adam Lieberman <br>
+          Age: 23 <br>
+          Location: Atlanta, GA
+          </font> -->
+      </div>
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Credit Score <br>
+      </div>
+      <div class="content" id='credit_score'>
+          <center><font color="green" size="20">760</font></center> <br>
+      </div>
+      <div class="title"> 
+          <i class="dropdown icon"></i> 
+          Card Usage
+      </div> 
+      <div class="content"> 
+      <div class="ui red progress" data-percent="93" id="cardusagebar3">
+          <div class="bar"></div>
+            <div class="label" id='card1label'>Chase: 93% Used</div>
+        </div>
+      	<div class="ui yellow progress" data-percent="74" id="cardusagebar">
+          <div class="bar"></div>
+            <div class="label" id='card2label'>Visa: 74% Used</div>
+        </div>
+        <div class="ui green progress" data-percent="38" id="cardusagebar2">
+          <div class="bar"></div>
+            <div class="label" id='card3label'>Discover: 38% Used</div>
+        </div>
+      </div>
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Debit Card
+      </div>
+      <div class="content">
+         <div class="ui tiny blue horizontal statistic" >
+            <div class="value" id='debit_card_balance'>
+            $2,204.00
+            </div>
+          <div class="label">
+            Balance
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recent Transactions Drop Down -->
+  <div class="title">
+    <font color="white"><i class="dropdown icon"></i></font>
+    <font color="white">Recent Transactions</font>
+  </div>
+  <div class="content">
+    <font color="white">Recent Transactions</font>
+    <div class="accordion">
+    <div class="title">
+          <i class="dropdown icon"></i>
+          Total Monthly Spending
+      </div>
+      <div class="content">
+      <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12.5"> 
+            <tr>
+              <td>Total Monthly Spending</td>
+              <td id='total_monthly_spending'>$433.86</td>
+            </tr>
+          </table>
+          <!--Total Spending: $1855.55 
+          <br>
+          STD Spending: $38.55 -->
+      </div>
+      <div class="title">
+        <i class="dropdown icon"></i>
+        8/28/2017
+      </div>
+      <div class="content">
+          <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12.5"> 
+            <tr>
+              <td>Merchant</td>
+              <td>Whole Foods</td>
+            </tr>
+            <tr>
+              <td>Amount</td>
+              <td>$9.95</td>
+            </tr>
+          </table>
+      </div>
+      <div class="title">
+          <i class="dropdown icon"></i>
+          8/27/2017
+      </div>
+      <div class="content">
+          <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12.5"> 
+            <tr>
+              <td>Merchant</td>
+              <td>Walmart</td>
+            </tr>
+            <tr>
+              <td>Amount</td>
+              <td>$5.55<td>
+            </tr>
+          </table>
+      </div>
+      <div class="title">
+          <i class="dropdown icon"></i>
+          8/25/2017
+      </div>
+      <div class="content">
+          <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12.5"> 
+            <tr>
+              <td>Merchant</td>
+              <td>Publix</td>
+            </tr>
+            <tr>
+              <td>Amount</td>
+              <td>$39.92</td>
+            </tr>
+          </table>
+      </div>
+      <div class="title">
+          <i class="dropdown icon"></i>
+          8/22/2017
+      </div>
+      <div class="content">
+          <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12.5"> 
+            <tr>
+              <td>Merchant</td>
+              <td>Uber</td>
+            </tr>
+            <tr>
+              <td>Amount</td>
+              <td>$18.95</td>
+            </tr>
+          </table>
+      </div>
+      <div class="title">
+          <i class="dropdown icon"></i>
+          8/22/2017
+      </div>
+      <div class="content">
+          <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12.5"> 
+            <tr>
+              <td>Merchant</td>
+              <td>Trader Joe's</td>
+            </tr>
+            <tr>
+              <td>Amount</td>
+              <td>$15.55</td>
+            </tr>
+          </table>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="title">
+    <font color="white"><i class="dropdown icon"></i></font>
+    <font color="white">Insights</font>
+  </div>
+  <div class="content">
+    <font color="white">Customer Analysis and Predictions</font>
+    <div class="accordion transition visible" style="display: block !important;">
+    <!--<div class="title">
+          <i class="dropdown icon"></i>
+          Rating
+      </div>
+      <div class="content">
+          <div class="ui star rating" data-rating="3"></div>
+      </div> -->
+    <div class="title">
+          <i class="dropdown icon"></i>
+          Customer Lifetime Value
+      </div>
+      <div class="content">
+          <!--LTV: $zzz.zzz <br>
+          <font color="black">Churn: Probability: 80% in 3 months <br>
+          </font> -->
+          <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12.5"> 
+            <tr>
+              <td>Lifetime Value</td>
+              <td id='ltv_value'>$375,225.22</td>
+            </tr>
+            <tr>
+              <td>Predicted Churn</td>
+              <td id='ltv_date'>6 months</td>
+            </tr>
+            <tr> 
+              <td>Predicted Probability of Churn</td>
+              <td id='ltv_probability'>80%</td>
+            </tr>
+            <tr>
+              <td>Rating</td>
+              <td id='rating'><div class="ui star rating" data-rating="3" id="star_rating"></div></td>
+            </tr>
+          </table>
+      </div>
+
+    <div class="title"> 
+    <i class="dropdown icon"></i>
+    Credit Card
+    </div>
+    <div class="content"> 
+    <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12">        <tr>
+              <td>High Usage Card</td>
+              <td id="high_usage_card">Chase</td>
+            </tr>
+            <tr>
+              <td>Recommended Card</td>
+              <td id="recommended_card">Master Card</td>
+            </tr>
+            <tr>
+              <td>Recommendation Reason</td>
+              <td id="recommendation_reason">5% cash back groceries</td>
+            </tr>
+            <tr>
+              <td>Predicted Next Month Spending</td>
+              <td id="predicted_next_month_spending">$650.22</td>
+            </tr>
+            <tr> 
+              <td>Predicted High Spending Category</td>
+              <td id="predicted_high_spending_category">Food/Groceries</td>
+            </tr>
+          </table>
+    </div>
+
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Classification
+      </div>
+      <div class="content">
+          <center><h4 id="cluster_group_name">Young Professionals</h4></center><br>
+
+
+          <table class="ui blue inverted table" style="color:white; font-size: 12.5"> 
+            <tr>
+              <td>Average Income</td>
+              <td id="cluster_average_income">$65,000-85,000</td>
+            </tr>
+            <tr>
+              <td>Average Expense</td>
+              <td id="cluster_average_expense">$55,000-72,000</td>
+            </tr>
+            <tr>
+              <td>Average 401K allotment</td>
+              <td id="cluster_401k_allotment">6-10%</td>
+            </tr>
+          </table>
+          <center><h4>Categories of Spending</h4></center>
+          <table class="ui orange inverted table" style="color:white; font-size: 12.5"> 
+            <tr>
+              <td>Rent</td>
+              <td id="category1">50%</td>
+            </tr>
+            <tr>
+              <td>Groceries</td>
+              <td id="category2">15%</td>
+            </tr>
+            <tr>
+              <td>Restaurants & Bars</td>
+              <td id="category3">20%</td>
+            </tr>
+            <tr>
+              <td>Uber</td>
+              <td id="category4">15%</td>
+            </tr>
+          </table>
+
+
+
+
+
+          <center><h4>Customer Comparison</h4></center>
+          <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12.5"> 
+            <tr>
+              <td>Spending within Group</td>
+              <td id="comparison_spending_in_group">High</td>
+            </tr>
+            <tr>
+              <td>Spending in General</td>
+              <td id="comparison_spending_general">Low</td>
+            </tr>
+            <tr>
+              <td>Saving within Group</td>
+              <td id="comparison_saving_in_group">High</td>
+            </tr>
+            <tr>
+              <td>Saving in General</td>
+              <td id="comparison_saving_general">High</td>
+            </tr>
+          </table>
+      </div>
+
+            <div class="title">
+          <i class="dropdown icon"></i>
+          Investments
+      </div>
+      <div class="content">
+        <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12.5"> 
+            <tr>
+              <td>Has 401K</td>
+              <td id="has_401k">Yes</td>
+            </tr>
+            <tr>
+              <td>Has IRA</td>
+              <td id="has_IRA">No</td>
+            </tr>
+            <tr>
+              <td>Amount in Savings</td>
+              <td id="amount_in_savings">$82,765.55</td>
+            </tr>
+            <tr>
+              <td>Specified Risk Tolerance</td>
+              <td id="specified_risk_tolerance">Low</td>
+            </tr>
+          </table>
+          <form class="ui fluid form">
+  <div class="field"><center><h4>Advice</h4></center>
+    <div class="ui pointing label">
+      Invest in Bonds
+    </div>
+    <div class="ui pointing label">
+      Open IRA
+    </div>
+  </div>
+  </form>
+      </div>
+
+
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Loans
+      </div>
+      <div class="content">
+          <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12.5"> 
+            <tr>
+              <td>Eligible</td>
+              <td>Yes</td>
+            </tr>
+            <tr>
+              <td>Type</td>
+              <td>Automobile</td>
+            </tr>
+            <tr> 
+              <td>Max Allowed Amount</td>
+              <td>$65,000.00</td>
+            </tr>
+          </table>
+          <div class="ui buttons">
+  <button class="ui red button">Deny</button>
+  <div class="or"></div>
+  <button class="ui positive button">Pre Approve</button>
+</div>
+      </div>
+
+
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Suggested Engagement
+      </div>
+      <div class="content">
+      <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12.5"> 
+            <tr>
+              <td>Method</td>
+              <td id='suggested_engagement_method'>Grocery Chatbot</td>
+            </tr>
+            </table>
+      </div>
+  <div class="title">
+  <i class="dropdown icon"></i>
+  Notes
+  <!--<p id='testt'></p> -->
+  </div>
+  <div class="content"> 
+  <form class="ui fluid form">
+  <div class="field">
+    <input type="text" placeholder="Enter notes here">
+  </div>
+  </form>
+  </div>
+    </div>
+  </div>
+  <div class="title">
+    <font color="white"><i class="dropdown icon"></i></font>
+    <font color="white">Special Events</font>
+  </div>
+  <div class="content">
+    <div class="accordion transition visible" style="display: block !important;">
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Holidays
+      </div>
+      <div class="content">
+        Thanksgiving <br>
+        Adam's Birthday
+      </div>
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Sporting Events
+      </div>
+      <div class="content">
+        Falcons Game <br>
+      </div>
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Music Events
+      </div>
+      <div class="content">
+        Taylor Swift <br>
+      </div>
+</div>
+</div>
+
+<div class="title">
+    <font color="white"><i class="dropdown icon"></i></font>
+    <font color="white">Quick Notes</font>
+  </div>
+<div class="content">
+<div class="ui vertical container segment shapeSegment">
+      <div class="ui middle aligned stackable grid container">
+        <div class="row">
+          <div class="sixteen wide column">
+            <div class="ui tab active" data-tab="examples">
+              <div class="ui divider"></div>
+              <div class="demo auto ui shape">
+                <div class="sides">
+                  <div class="active first side">
+                    <font color="white"><p>Today is Adam's Birthday</p></font>
+                  </div>
+                  <div class="second side">
+                    <font color="white"><p>Adam should open an IRA account</p></font>
+                  </div>
+                  <div class="third side">
+                    <font color="white"><p>Switching to card X could save Adam 5% each month</p></font>
+                  </div>
+                </div>
+              </div>
+              <div class="ui ignored divider"></div>
+              <div class="ui ignored icon direction buttons">
+                <div class="ui button" data-animation="flip" title="Flip Left" data-direction="left"><i class="left long arrow icon"></i></div>
+                <div class="ui button" data-animation="flip" title="Flip Up" data-direction="up"><i class="up long arrow icon"></i></div>
+                <div class="ui icon button" data-animation="flip" title="Flip Down" data-direction="down"><i class="down long arrow icon"></i></div>
+                <div class="ui icon button" data-animation="flip" title="Flip Right" data-direction="right"><i class="right long arrow icon"></i></div>
+              </div>
+              <!--<div class="ui ignored icon direction buttons">
+                <div class="ui button" title="Flip Over" data-animation="flip" data-direction="over"><i class="retweet icon"></i></div>
+                <div class="ui button" title="Flip Back" data-animation="flip" data-direction="back"><i class="flipped retweet icon"></i></div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="title">
+    <font color="white"><i class="dropdown icon"></i></font>
+    <font color="white">Recommended Promotions</font>
+  </div>
+<div class="content">
+</div>
+
+</div>
+</div>
+
+<div id="Rightoverlay">
+<div class="ui styled accordion" style="background-color: transparent; color: white;">
+  <div class="title">
+    <font color="white"><i class="dropdown icon"></i></font>
+    <font color="white">Special Events</font>
+  </div>
+  <div class="content">
+    <div class="accordion transition visible" style="display: block !important;">
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Holidays
+      </div>
+      <div class="content">
+        Thanksgiving <br>
+        Adam's Birthday
+      </div>
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Sporting Events
+      </div>
+      <div class="content">
+        Falcons Game <br>
+      </div>
+      <div class="title">
+          <i class="dropdown icon"></i>
+          Music Events
+      </div>
+      <div class="content">
+        Taylor Swift <br>
+      </div>
+</div>
+</div>
+
+<div class="title">
+    <font color="white"><i class="dropdown icon"></i></font>
+    <font color="white">Quick Notes</font>
+  </div>
+<div class="content">
+<div class="ui vertical container segment shapeSegment">
+      <div class="ui middle aligned stackable grid container">
+        <div class="row">
+          <div class="sixteen wide column">
+            <div class="ui tab active" data-tab="examples">
+              <div class="ui divider"></div>
+              <div class="demo auto ui shape">
+                <div class="sides">
+                  <div class="active first side">
+                    <font color="white"><p>Today is Adam's Birthday</p></font>
+                  </div>
+                  <div class="second side">
+                    <font color="white"><p>Adam should open an IRA account</p></font>
+                  </div>
+                  <div class="third side">
+                    <font color="white"><p>Switching to card X could save Adam 5% each month</p></font>
+                  </div>
+                </div>
+              </div>
+              <div class="ui ignored divider"></div>
+              <div class="ui ignored icon direction buttons">
+                <div class="ui button" data-animation="flip" title="Flip Left" data-direction="left"><i class="left long arrow icon"></i></div>
+                <div class="ui button" data-animation="flip" title="Flip Up" data-direction="up"><i class="up long arrow icon"></i></div>
+                <div class="ui icon button" data-animation="flip" title="Flip Down" data-direction="down"><i class="down long arrow icon"></i></div>
+                <div class="ui icon button" data-animation="flip" title="Flip Right" data-direction="right"><i class="right long arrow icon"></i></div>
+              </div>
+              <!--<div class="ui ignored icon direction buttons">
+                <div class="ui button" title="Flip Over" data-animation="flip" data-direction="over"><i class="retweet icon"></i></div>
+                <div class="ui button" title="Flip Back" data-animation="flip" data-direction="back"><i class="flipped retweet icon"></i></div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="title">
+    <font color="white"><i class="dropdown icon"></i></font>
+    <font color="white">Recommended Promotions</font>
+  </div>
+<div class="content">
+</div>
+</div>
+</div>
+
+<!-- Bottom Box for Quick Info--> 
+<div id="BottomOverlay"> 
+<center><div id="test" class="ui circular animated button full-circle" style="bottom:0; position: fixed; background-color: #54B948 " tabindex="0">
+    <div class="visible content">Credit Buddy</div>
+    <div class="hidden content">
+        <i class="large black smile icon"></i>
+    </div></div></center>
+
+</div>
+<div class="ui modal test" style="z-index: -10; width: 60%; position: fixed; opacity: 2.5" id="">
+  <i class="close icon"></i>
+  <div class="header">
+    Credit Buddy
+  </div>
+  <div class="image content">
+    <div class="ui medium image">
+      <h3>Customer Goals:</h3>
+      <ul>
+      <li>Purchase $72,800 automobile</li>
+      <li>Have $275,000 in savings by 2020</li>
+      </ul>
+      <!--<img src="https://semantic-ui.com/images/avatar2/large/rachel.png"> -->
+    </div>
+    <div class="description">
+      <div class="ui header">Here are some tips to help Adam reach his credit goals.</div>
+      <p>Save $400/month to reduce spending to $1400.00 per month over a 12 month period.</p>
+      <p></p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui black deny button">
+      Exit
+    </div>
+    <!--<div class="ui positive right labeled icon button">
+      Yep, that's me
+      <i class="checkmark icon"></i>
+    </div> -->
+  </div>
+</div>
+<!--<center><h4><font color="white">Quick Notes</font></h4></center>
+<div class="ui vertical container segment shapeSegment">
+      <div class="ui middle aligned stackable grid container">
+        <div class="row">
+          <div class="sixteen wide column">
+            <div class="ui tab active" data-tab="examples">
+              <div class="ui divider"></div>
+              <div class="demo auto ui shape">
+                <div class="sides">
+                  <div class="active first side">
+                    <font color="white"><p>Today is Adam's Birthday</p></font>
+                  </div>
+                  <div class="second side">
+                    <font color="white"><p>Adam should open an IRA account</p></font>
+                  </div>
+                  <div class="third side">
+                    <font color="white"><p>Switching to card X could save Adam 5% each month</p></font>
+                  </div>
+                </div>
+              </div>
+              <div class="ui ignored divider"></div>
+              <div class="ui ignored icon direction buttons">
+                <div class="ui button" data-animation="flip" title="Flip Left" data-direction="left"><i class="left long arrow icon"></i></div>
+                <div class="ui button" data-animation="flip" title="Flip Up" data-direction="up"><i class="up long arrow icon"></i></div>
+                <div class="ui icon button" data-animation="flip" title="Flip Down" data-direction="down"><i class="down long arrow icon"></i></div>
+                <div class="ui icon button" data-animation="flip" title="Flip Right" data-direction="right"><i class="right long arrow icon"></i></div> 
+              </div> -->
+              <!--<div class="ui ignored icon direction buttons">
+                <div class="ui button" title="Flip Over" data-animation="flip" data-direction="over"><i class="retweet icon"></i></div>
+                <div class="ui button" title="Flip Back" data-animation="flip" data-direction="back"><i class="flipped retweet icon"></i></div>
+              </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+<!--<div class="ui card" style="overflow: scroll; bottom: 0; position: fixed">
+  <div class="content">
+    <div class="header">Quick Notes</div>
+  </div>
+  <div class="content">
+    <h4 class="ui sub header">Activity</h4>
+    <div class="ui small feed">
+      <div class="event">
+        <div class="content">
+          <div class="summary">
+             <a>Elliot Fu</a> added <a>Jenny Hess</a> to the project
+          </div>
+        </div>
+      </div>
+      <div class="event">
+        <div class="content">
+          <div class="summary">
+             <a>Stevie Feliciano</a> was added as an <a>Administrator</a>
+          </div>
+        </div>
+      </div>
+      <div class="event">
+        <div class="content">
+          <div class="summary">
+             <a>Helen Troy</a> added two pictures
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="extra content">
+    <button class="ui button">Join Project</button>
+  </div>
+</div> -->
+<!--<center><h4><font color='white'>Quick Notes</font></h4></center> -->
+<!--<button class="ui button yellow create_btn" type="button" id="test">Create</button>
+
+<div class="ui modal test" style="z-index: 10000">
+  <i class="close icon"></i>
+  <div class="header">
+    Profile Picture
+  </div>
+  <div class="image content">
+    <div class="ui medium image">
+      <img src="https://semantic-ui.com/images/avatar2/large/rachel.png">
+    </div>
+    <div class="description">
+      <div class="ui header">We've auto-chosen a profile image for you.</div>
+      <p>We've grabbed the following image from the <a href="https://www.gravatar.com" target="_blank">gravatar</a> image associated with your registered e-mail address.</p>
+      <p>Is it okay to use this photo?</p>
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui black deny button">
+      Nope
+    </div>
+    <div class="ui positive right labeled icon button">
+      Yep, that's me
+      <i class="checkmark icon"></i>
+    </div>
+  </div>
+</div>
+</div> -->
+<!-- End of Bottom Box -->
+
+
+<script>
+$('.shapeSegment .ui.button[data-shape=auto]').click(function(){
+    $('.shapeSegment .ui.button[data-shape]').removeClass('active');
+    $(this).addClass('active');
+    $('.shape').addClass('auto').removeClass('square').removeClass('irregular');
+  });
+
+  $('.shapeSegment .ui.button[data-shape=square]').click(function(){
+    $('.shapeSegment .ui.button[data-shape]').removeClass('active');
+    $(this).addClass('active');
+    $('.shape').addClass('square').removeClass('auto').removeClass('irregular');
+  });
+
+  $('.shapeSegment .ui.button[data-shape=irregular]').click(function(){
+    $('.shapeSegment .ui.button[data-shape]').removeClass('active');
+    $(this).addClass('active');
+    $('.shape').addClass('irregular').removeClass('auto').removeClass('square');
+  });
+
+  $('.shapeSegment .ui.button[data-direction=left]').click(function(){
+    $('.shape').shape('flip left');
+  });
+
+  $('.shapeSegment .ui.button[data-direction=up]').click(function(){
+    $('.shape').shape('flip up');
+  });
+
+  $('.shapeSegment .ui.button[data-direction=down]').click(function(){
+    $('.shape').shape('flip down');
+  });
+
+  $('.shapeSegment .ui.button[data-direction=right]').click(function(){
+    $('.shape').shape('flip right');
+  });
+
+  $('.shapeSegment .ui.button[data-direction=over]').click(function(){
+    $('.shape').shape('flip over');
+  });
+
+  $('.shapeSegment .ui.button[data-direction=back]').click(function(){
+    $('.shape').shape('flip back');
+  });
+</script>
+
+
+<script> 
+$(function(){
+  $("#test").click(function(){
+    $(".test").modal('show');
+  });
+  $(".test").modal({
+    closable: true
+  });
+});
+</script>
+
+
+
+
+
+
+<!-- End of Left Accordion -->
+
+<!-- Set the text for the id as follows: -->
+<!--<script>
+document.getElementById("testt").innerHTML = "my text"
+</script> -->
+
+<!-- Testing Coordinate Stream --> 
+<!--<div id="TestOverlay"><center><font color= "white"><h1 id="TestStreamCoords">TEST</h1></font></center></div> -->
+
+<!-- End of Testing Coordinate Stream -->
+
+
+
+
+<!-- Set the id variables --> 
+<!--document.getElementById("testt").innerHTML = "my text" -->
+<!-- End of setting the id variables -->
+
+<!-- Camera -->
+<div id="camera">
+    <video autoplay="true" id="video" style="width:100%;"></video>
+</div>
+<!-- End of Camera -->
+
+
+<!-- SCRIPTS -->
+<!-- TODO: Put these into 1 script tag -->
+
+
+<!-- Accordion -->
+<script>
+$('.ui.accordion')
+  .accordion()
+;
+</script>
+<!-- End of Accordion -->
+
+
+
+<!-- Rating stars --> 
+<script>
+$('.ui.rating')
+  .rating({
+    initialRating: 3,
+    maxRating: 5
+  })
+;
+</script>
+<!-- End of rating stars -->
+
+
+<!-- Progress Bar --> 
+<script> 
+$('#cardusagebar').progress();
+$('#cardusagebar2').progress();
+$('#cardusagebar3').progress();
+$('#cardusagebar4').progress();
+</script>
+
+<!-- Circular Button -->
+<script>
+$('.full-circle').each(function() {
+  $(this).css('lineHeight', $(this).width() + 'px');
+});
+</script>
+
+
+</body>
+</html>
