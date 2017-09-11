@@ -46,8 +46,8 @@ def detectFace():
     base64Str = base64Str[len('data:image/png;base64,'):] # Remove Header
     im = Image.open(BytesIO(base64.b64decode(base64Str)))
     img = np.array(im)
-    from matplotlib import pyplot as plt
-    plt.imshow(img, cmap=None)
+    # from matplotlib import pyplot as plt
+    # plt.imshow(img, cmap=None)
     # plt.show()
 
     # Gray Image
