@@ -19,7 +19,8 @@ cors = CORS(app, resources={r"/*": {"origins": "*"}})
 def index():
 
     #The index page that will show the video
-    return render_template('index.html')
+    print 'index'
+    return render_template('index.htm')
 
 def gen(camera):
     while True:
@@ -45,8 +46,8 @@ def detectFace():
     base64Str = base64Str[len('data:image/png;base64,'):] # Remove Header
     im = Image.open(BytesIO(base64.b64decode(base64Str)))
     img = np.array(im)
-    from matplotlib import pyplot as plt
-    plt.imshow(img, cmap=None)
+    # from matplotlib import pyplot as plt
+    # plt.imshow(img, cmap=None)
     # plt.show()
 
     # Gray Image
@@ -80,6 +81,7 @@ def jsonp(func):
 
 
 if __name__ == '__main__':
-    host = 'localhost'
-    port = 80
+    # host = 'localhost'
+    host = '0.0.0.0'
+    port = 8080
     app.run(host=host, debug=True,port=port)
