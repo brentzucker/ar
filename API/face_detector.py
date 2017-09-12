@@ -29,10 +29,10 @@ class FaceDetector():
         face_objs = []
         for (x, y, w, h) in faces:
             f = {
-                'x': x,
-                'y': y,
-                'w': w,
-                'h': h
+                'x': int(x),
+                'y': int(y),
+                'w': int(w),
+                'h': int(h)
             }
             face_objs.append(f)
         return face_objs
