@@ -193,7 +193,7 @@
           <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12"> 
             <tr>
               <td>Name</td>
-              <td id='demographics_name'>Adam Lieberman</td>
+              <td id="demographics_name">Adam Lieberman</td>
             </tr>
             <tr>
               <td>Age</td>
@@ -294,7 +294,7 @@
           <br>
           STD Spending: $38.55 -->
       </div>
-      <div class="title">
+      <div class="title" id="d1">
         <i class="dropdown icon"></i>
         8/28/2017
       </div>
@@ -302,15 +302,15 @@
           <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12.5"> 
             <tr>
               <td>Merchant</td>
-              <td>Whole Foods</td>
+              <td id="t1">Whole Foods</td>
             </tr>
             <tr>
               <td>Amount</td>
-              <td>$9.95</td>
+              <td id="a1">$9.95</td>
             </tr>
           </table>
       </div>
-      <div class="title">
+      <div class="title" id="d2">
           <i class="dropdown icon"></i>
           8/27/2017
       </div>
@@ -318,15 +318,15 @@
           <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12.5"> 
             <tr>
               <td>Merchant</td>
-              <td>Walmart</td>
+              <td id="t2">Walmart</td>
             </tr>
             <tr>
               <td>Amount</td>
-              <td>$5.55<td>
+              <td id="a2">$5.55</td>
             </tr>
           </table>
       </div>
-      <div class="title">
+      <div class="title" id="d3">
           <i class="dropdown icon"></i>
           8/25/2017
       </div>
@@ -334,15 +334,15 @@
           <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12.5"> 
             <tr>
               <td>Merchant</td>
-              <td>Publix</td>
+              <td id="t3">Publix</td>
             </tr>
             <tr>
               <td>Amount</td>
-              <td>$39.92</td>
+              <td id="a3">$39.92</td>
             </tr>
           </table>
       </div>
-      <div class="title">
+      <div class="title" id="d4">
           <i class="dropdown icon"></i>
           8/22/2017
       </div>
@@ -350,15 +350,15 @@
           <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12.5"> 
             <tr>
               <td>Merchant</td>
-              <td>Uber</td>
+              <td id="t4">Uber</td>
             </tr>
             <tr>
               <td>Amount</td>
-              <td>$18.95</td>
+              <td id="a4">$18.95</td>
             </tr>
           </table>
       </div>
-      <div class="title">
+      <div class="title" id="d5">
           <i class="dropdown icon"></i>
           8/22/2017
       </div>
@@ -366,11 +366,11 @@
           <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12.5"> 
             <tr>
               <td>Merchant</td>
-              <td>Trader Joe's</td>
+              <td id="t5">Trader Joe's</td>
             </tr>
             <tr>
               <td>Amount</td>
-              <td>$15.55</td>
+              <td id="a5">$15.55</td>
             </tr>
           </table>
       </div>
@@ -473,19 +473,19 @@
           <center><h4>Categories of Spending</h4></center>
           <table class="ui orange inverted table" style="color:white; font-size: 12.5"> 
             <tr>
-              <td>Rent</td>
+              <td id="c1">Rent</td>
               <td id="category1">50%</td>
             </tr>
             <tr>
-              <td>Groceries</td>
+              <td id="c2">Groceries</td>
               <td id="category2">15%</td>
             </tr>
             <tr>
-              <td>Restaurants & Bars</td>
+              <td id="c3">Restaurants & Bars</td>
               <td id="category3">20%</td>
             </tr>
             <tr>
-              <td>Uber</td>
+              <td id="c4">Uber</td>
               <td id="category4">15%</td>
             </tr>
           </table>
@@ -540,10 +540,10 @@
           </table>
           <form class="ui fluid form">
   <div class="field"><center><h4>Advice</h4></center>
-    <div class="ui pointing label">
+    <div class="ui pointing label" id="advice1">
       Invest in Bonds
     </div>
-    <div class="ui pointing label">
+    <div class="ui pointing label" id="advice2">
       Open IRA
     </div>
   </div>
@@ -559,15 +559,15 @@
           <table class="ui inverted table" style="color:white; background-color: #358038; font-size: 12.5"> 
             <tr>
               <td>Eligible</td>
-              <td>Yes</td>
+              <td id="loan_eligibility">Yes</td>
             </tr>
             <tr>
               <td>Type</td>
-              <td>Automobile</td>
+              <td id="loan_type">Automobile</td>
             </tr>
             <tr> 
               <td>Max Allowed Amount</td>
-              <td>$65,000.00</td>
+              <td id="max_loan_amount">$65,000.00</td>
             </tr>
           </table>
           <div class="ui buttons">
@@ -593,7 +593,7 @@
   <div class="title">
   <i class="dropdown icon"></i>
   Notes
-  <!--<p id='testt'></p> -->
+  <p id='testt'></p>
   </div>
   <div class="content"> 
   <form class="ui fluid form">
@@ -614,22 +614,21 @@
           <i class="dropdown icon"></i>
           Holidays
       </div>
-      <div class="content">
-        Thanksgiving <br>
+      <div class="content" id="event1">
         Adam's Birthday
       </div>
       <div class="title">
           <i class="dropdown icon"></i>
           Sporting Events
       </div>
-      <div class="content">
+      <div class="content" id="event2">
         Falcons Game <br>
       </div>
       <div class="title">
           <i class="dropdown icon"></i>
           Music Events
       </div>
-      <div class="content">
+      <div class="content" id="event3">
         Taylor Swift <br>
       </div>
 </div>
@@ -637,7 +636,7 @@
 
 <div class="title">
     <font color="white"><i class="dropdown icon"></i></font>
-    <font color="white">Quick Notes</font>
+    <font color="white">Talking Points</font>
   </div>
 <div class="content">
 <div class="ui vertical container segment shapeSegment">
@@ -649,13 +648,13 @@
               <div class="demo auto ui shape">
                 <div class="sides">
                   <div class="active first side">
-                    <font color="white"><p>Today is Adam's Birthday</p></font>
+                    <font color="white"><p id="talking_point_1">Today is Adam's Birthday</p></font>
                   </div>
                   <div class="second side">
-                    <font color="white"><p>Adam should open an IRA account</p></font>
+                    <font color="white"><p id="talking_point_2">Adam should open an IRA account</p></font>
                   </div>
                   <div class="third side">
-                    <font color="white"><p>Switching to card X could save Adam 5% each month</p></font>
+                    <font color="white"><p id="talking_point_3">Switching to card X could save Adam 5% each month</p></font>
                   </div>
                 </div>
               </div>
@@ -677,17 +676,23 @@
     </div>
 </div>
 
-<div class="title">
+<!--<div class="title">
     <font color="white"><i class="dropdown icon"></i></font>
     <font color="white">Recommended Promotions</font>
   </div>
 <div class="content">
-</div>
+</div> -->
 
 </div>
 </div>
 
-<div id="Rightoverlay">
+<!-- Camera -->
+<div id="camera">
+    <video autoplay="true" id="video" style="width:100%;"></video>
+</div>
+<!-- End of Camera -->
+
+<!--<div id="Rightoverlay">
 <div class="ui styled accordion" style="background-color: transparent; color: white;">
   <div class="title">
     <font color="white"><i class="dropdown icon"></i></font>
@@ -750,29 +755,29 @@
                 <div class="ui button" data-animation="flip" title="Flip Up" data-direction="up"><i class="up long arrow icon"></i></div>
                 <div class="ui icon button" data-animation="flip" title="Flip Down" data-direction="down"><i class="down long arrow icon"></i></div>
                 <div class="ui icon button" data-animation="flip" title="Flip Right" data-direction="right"><i class="right long arrow icon"></i></div>
-              </div>
+              </div> -->
               <!--<div class="ui ignored icon direction buttons">
                 <div class="ui button" title="Flip Over" data-animation="flip" data-direction="over"><i class="retweet icon"></i></div>
                 <div class="ui button" title="Flip Back" data-animation="flip" data-direction="back"><i class="flipped retweet icon"></i></div>
               </div> -->
-            </div>
+            <!--</div>
           </div>
         </div>
       </div>
     </div>
-</div>
+</div> -->
 
-<div class="title">
+<!--<div class="title">
     <font color="white"><i class="dropdown icon"></i></font>
     <font color="white">Recommended Promotions</font>
   </div>
 <div class="content">
 </div>
 </div>
-</div>
+</div> -->
 
 <!-- Bottom Box for Quick Info--> 
-<div id="BottomOverlay"> 
+<!--<div id="BottomOverlay"> 
 <center><div id="test" class="ui circular animated button full-circle" style="bottom:0; position: fixed; background-color: #54B948 " tabindex="0">
     <div class="visible content">Credit Buddy</div>
     <div class="hidden content">
@@ -791,9 +796,9 @@
       <ul>
       <li>Purchase $72,800 automobile</li>
       <li>Have $275,000 in savings by 2020</li>
-      </ul>
+      </ul> -->
       <!--<img src="https://semantic-ui.com/images/avatar2/large/rachel.png"> -->
-    </div>
+    <!--</div>
     <div class="description">
       <div class="ui header">Here are some tips to help Adam reach his credit goals.</div>
       <p>Save $400/month to reduce spending to $1400.00 per month over a 12 month period.</p>
@@ -803,13 +808,13 @@
   <div class="actions">
     <div class="ui black deny button">
       Exit
-    </div>
+    </div> -->:
     <!--<div class="ui positive right labeled icon button">
       Yep, that's me
       <i class="checkmark icon"></i>
     </div> -->
-  </div>
-</div>
+  <!--</div>
+</div> -->
 <!--<center><h4><font color="white">Quick Notes</font></h4></center>
 <div class="ui vertical container segment shapeSegment">
       <div class="ui middle aligned stackable grid container">
@@ -978,7 +983,7 @@ $(function(){
 
 <!-- Set the text for the id as follows: -->
 <!--<script>
-document.getElementById("testt").innerHTML = "my text"
+document.getElementById("testt").innerHTML = "my text";
 </script> -->
 
 <!-- Testing Coordinate Stream --> 
@@ -991,13 +996,129 @@ document.getElementById("testt").innerHTML = "my text"
 
 <!-- Set the id variables --> 
 <!--document.getElementById("testt").innerHTML = "my text" -->
+<script> 
+//Set Demographics 
+document.getElementById("demographics_name").innerHTML = "Eli Rosner";
+document.getElementById("demographics_age").innerHTML = "23 x 2";
+document.getElementById("demographics_birthdate").innerHTML = "04/04/1971";
+document.getElementById("demographics_ethnicity").innerHTML = "White"; //We might remove this
+document.getElementById("demographics_location").innerHTML = "San Francisco, CA";
+document.getElementById("demographics_zip").innerHTML = "87789";
+document.getElementById("demographics_maritial_status").innerHTML = "Married" ;
+document.getElementById("demographics_employment_status").innerHTML = "Employed";
+
+//Credit Score
+var creditStyle1 = "<center><font color='green' size='20'>"; 
+var creditStyle2 = "</font></center> <br>"
+var credit_score = "850"; 
+var credit = creditStyle1.concat(credit_score); 
+var credit2 = credit.concat(creditStyle2); 
+document.getElementById('credit_score').innerHTML = credit2;
+
+//Card Usage 
+document.getElementById('card1label').innerHTML = "Chase 90%";
+$("#cardusagebar3").attr('data-percent',90);
+document.getElementById('card2label').innerHTML = "Visa 82%";
+$("#cardusagebar").attr('data-percent',82);
+document.getElementById('card3label').innerHTML = "Discover 30%";
+$("#cardusagebar2").attr('data-percent',30);
+
+//Debit Card
+document.getElementById('debit_card_balance').innerHTML = "$3,204.00"; //Works through here 
+
+//Recent Transactions 
+var dropdown = "<i class='dropdown icon'></i>"  //We need to concat this with out dates so there is a dropdown icon in the div
+var d1 = "09/11/2017"; 
+var d2 = "09/10/2017";
+var d3 = "09/09/2017"; 
+var d4 = "09/08/2017"; 
+var d5 = "09/07/2017"; 
+var date1 = dropdown.concat(d1)
+var date2 = dropdown.concat(d2)
+var date3 = dropdown.concat(d3)
+var date4 = dropdown.concat(d4)
+var date5 = dropdown.concat(d5)
+document.getElementById("d1").innerHTML = date1; 
+document.getElementById("d2").innerHTML = date2; 
+document.getElementById("d3").innerHTML = date3; 
+document.getElementById("d4").innerHTML = date4; 
+document.getElementById("d5").innerHTML = date5; 
+document.getElementById("total_monthly_spending").innerHTML = "$10245.55"; 
+document.getElementById("t1").innerHTML = "Whole Foods";
+document.getElementById("a1").innerHTML = "$235.55"; 
+document.getElementById("t2").innerHTML = "Best Buy";
+document.getElementById("a2").innerHTML = "$1255.55"; 
+document.getElementById("t3").innerHTML = "AMC";
+document.getElementById("a3").innerHTML = "$32.55"; 
+document.getElementById("t4").innerHTML = "Ferragamo";
+document.getElementById("a4").innerHTML = "$1155.55"; 
+document.getElementById("t5").innerHTML = "Nordstrom";
+document.getElementById("a5").innerHTML = "$555.22"; 
+
+
+//Lifetime Value 
+document.getElementById("ltv_value").innerHTML = "$5,332,233.23"; 
+document.getElementById("ltv_date").innerHTML = "9 months";
+document.getElementById("ltv_probability").innerHTML = "92%"
+
+//User Rating 
+$("#star_rating").attr('data-rating',4);
+
+//Credit Card 
+document.getElementById("high_usage_card").innerHTML = "Chase"; 
+document.getElementById("recommended_card").innerHTML = "Master Card"; 
+document.getElementById("recommendation_reason").innerHTML = "1% more cash back on travel"; 
+document.getElementById("predicted_next_month_spending").innerHTML = "$8,225.55"; 
+document.getElementById("predicted_high_spending_category").innerHTML = "travel"; 
+
+
+//Classification 
+document.getElementById("cluster_group_name").innerHTML = "Working Professionals"; 
+document.getElementById("cluster_average_income").innerHTML = "$255,500.00";
+document.getElementById("cluster_average_expense").innerHTML = "$82,500.55";
+document.getElementById("cluster_401k_allotment").innerHTML = "8%";
+document.getElementById("c1").innerHTML = "Travel";
+document.getElementById("category1").innerHTML = "38%";
+document.getElementById("c2").innerHTML = "Restaurants/Bars";
+document.getElementById("category2").innerHTML = "22%";
+document.getElementById("c3").innerHTML = "Entertainment";
+document.getElementById("category3").innerHTML = "21%";
+document.getElementById("c4").innerHTML = "Uber";
+document.getElementById("category4").innerHTML = "19%";
+
+document.getElementById("comparison_spending_in_group").innerHTML = "Low"; 
+document.getElementById("comparison_spending_general").innerHTML = "Low"; 
+document.getElementById("comparison_saving_in_group").innerHTML = "High"; 
+document.getElementById("comparison_saving_general").innerHTML = "High"; 
+
+//Investments
+document.getElementById("has_401k").innerHTML = "Yes"; 
+document.getElementById("has_IRA").innerHTML = "Yes"; 
+document.getElementById("amount_in_savings").innerHTML = "$5,500,234.88"; 
+document.getElementById("specified_risk_tolerance").innerHTML = "Moderate"; 
+document.getElementById("advice1").innerHTML = "Allocate more in Utilities"; 
+document.getElementById("advice2").innerHTML = "Reduce travel expenses"; 
+
+//Loans 
+document.getElementById("loan_eligibility").innerHTML = "Yes"; 
+document.getElementById("loan_type").innerHTML = "Mortgage"; 
+document.getElementById("max_loan_amount").innerHTML = "$12,500,000"; 
+
+//Customer Engagement 
+document.getElementById("suggested_engagement_method").innerHTML = "Email"; 
+
+//Special Events 
+document.getElementById("event1").innerHTML = "Eli's Birthday"; 
+document.getElementById("event2").innerHTML = "Falcons's Game"; 
+document.getElementById("event3").innerHTML = "Music Midtown"; 
+
+//Talking Points
+document.getElementById("talking_point_1").innerHTML = "Today is Eli's Birthday"; 
+document.getElementById("talking_point_2").innerHTML = "Suspicious charge detected on 09/10/2017"; 
+document.getElementById("talking_point_3").innerHTML = "Eli eligible for mortgage of $12,500,000"; 
+</script> 
 <!-- End of setting the id variables -->
 
-<!-- Camera -->
-<div id="camera">
-    <video autoplay="true" id="video" style="width:100%;"></video>
-</div>
-<!-- End of Camera -->
 
 
 <!-- SCRIPTS -->
